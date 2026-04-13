@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GHL Playground — a GoHighLevel practice environment by Zata Digital Solutions. Practice CRM, funnels, email, SMS, automation and more.">
+  <meta name="author" content="Zata Digital Solutions">
+  <meta property="og:title" content="Bhel GHL Playground — Zata Digital Solutions">
+  <meta property="og:description" content="Practice GoHighLevel CRM, funnels, email campaigns, SMS sequences, automation workflows and A/B testing — all in one sandbox.">
+  <meta property="og:url" content="https://ghlplayground.zatadigitalsolutions.com">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230ea5e9'/><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='14' font-weight='800' fill='white' font-family='system-ui'>Z</text></svg>">
+<title>Bhel GHL Playground — Zata Digital Solutions</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sb:#161b2e;--accent:#0ea5e9;--accent2:#7c3aed;--accent3:#16a34a;--accent4:#f59e0b;--accent5:#ef4444;
+  --bg:#f1f5f9;--card:#fff;--border:rgba(0,0,0,0.08);--text1:#0f172a;--text2:#64748b;--text3:#94a3b8;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;background:var(--bg);color:var(--text1);height:100vh;overflow:hidden}
+.app{display:flex;height:100vh;overflow:hidden;position:relative}
+.sb{width:212px;min-width:212px;background:var(--sb);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.sb::-webkit-scrollbar{width:3px}.sb::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1)}
+.sb-logo{padding:15px 14px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:9px}
+.sb-li{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
+.sb-lt{font-size:14px;font-weight:600;color:#fff;line-height:1.2}
+.sb-lt small{font-size:9px;display:block;color:rgba(255,255,255,0.35);font-weight:400}
+.sb-sec{padding:3px 0}
+.sb-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,0.22);padding:8px 14px 2px;letter-spacing:1px;text-transform:uppercase}
+.ni{display:flex;align-items:center;gap:9px;padding:7px 14px;cursor:pointer;color:#8b97b0;font-size:12px;transition:all .12s;position:relative}
+.ni:hover{background:rgba(255,255,255,0.05);color:#fff}
+.ni.on{background:rgba(14,165,233,0.14);color:#fff}
+.ni.on::before{content:'';position:absolute;left:0;top:0;height:100%;width:3px;background:var(--accent);border-radius:0 2px 2px 0}
+.ni-ic{font-size:14px;width:17px;text-align:center;flex-shrink:0}
+.ni-bd{margin-left:auto;background:#ef4444;color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:700}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 16px;height:50px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.tb-title{font-size:14px;font-weight:600;color:var(--text1)}
+.sw{position:relative;flex:1;max-width:280px;margin-left:10px}
+.sw input{width:100%;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:6px 10px 6px 28px;font-size:12px;color:var(--text1);outline:none}
+.sw input:focus{border-color:var(--accent)}
+.sw-ic{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--text3)}
+.tb-acts{margin-left:auto;display:flex;align-items:center;gap:8px}
+.btn-p{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:12px;cursor:pointer;font-weight:500;white-space:nowrap}
+.btn-p:hover{background:#0284c7}
+.btn-s{background:transparent;border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:12px;color:var(--text2);cursor:pointer}
+.btn-s:hover{background:#f8fafc}
+.av{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;cursor:pointer;flex-shrink:0}
+.content{flex:1;overflow-y:auto;padding:16px;padding-bottom:48px}
+.pg{display:none}.pg.on{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.sc{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px}
+.sl{font-size:11px;color:var(--text2);margin-bottom:4px}
+.sv{font-size:22px;font-weight:600;color:var(--text1);margin-bottom:3px}
+.sch.up{font-size:11px;color:#16a34a}.sch.dn{font-size:11px;color:#dc2626}.sch.nt{font-size:11px;color:#d97706}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.st{font-size:13px;font-weight:600;color:var(--text1)}
+.tag{display:inline-block;padding:2px 7px;border-radius:12px;font-size:10px;font-weight:600}
+.t-lead{background:#dbeafe;color:#1e40af}.t-cust{background:#dcfce7;color:#166534}
+.t-pros{background:#fef9c3;color:#854d0e}.t-cold{background:#f1f5f9;color:#475569}
+.t-hot{background:#fee2e2;color:#991b1b}.t-new{background:#ede9fe;color:#5b21b6}
+.t-act{background:#d1fae5;color:#065f46}.t-pau{background:#fef3c7;color:#92400e}
+.t-drft{background:#f1f5f9;color:#374151}
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed}
+.tbl th{font-size:10px;color:var(--text2);font-weight:600;padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);background:#f8fafc}
+.tbl td{font-size:11px;color:var(--text1);padding:9px 10px;border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbl tr:last-child td{border:none}.tbl tr:hover td{background:#f8fafc}
+.ava{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0}
+.brw{display:flex;flex-direction:column;gap:7px}
+.br{display:flex;align-items:center;gap:7px}
+.bl{font-size:10px;color:var(--text2);width:72px;text-align:right;flex-shrink:0}
+.bt{flex:1;height:7px;background:#f1f5f9;border-radius:4px;overflow:hidden}
+.bf{height:100%;border-radius:4px}
+.bv{font-size:10px;color:var(--text2);width:42px;flex-shrink:0}
+.ai-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
+.ai-item:last-child{border:none}
+.ad{width:7px;height:7px;border-radius:50%;margin-top:3px;flex-shrink:0}
+.at{font-size:11px;color:var(--text1);line-height:1.5}
+.atm{font-size:10px;color:var(--text3);margin-top:1px}
+.pr-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.pr-bar{height:5px;background:#f1f5f9;border-radius:3px;overflow:hidden;margin-bottom:12px}
+.pr-fill{height:100%;border-radius:3px}
+.sub-nav{display:flex;gap:2px;margin-bottom:14px;flex-wrap:wrap}
+.stab{padding:6px 12px;font-size:12px;color:var(--text2);cursor:pointer;border-radius:7px}
+.stab:hover{background:#f1f5f9}.stab.on{background:#f1f5f9;color:var(--text1);font-weight:600}
+.filt-bar{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.fb{padding:5px 10px;border:1px solid var(--border);border-radius:14px;font-size:11px;color:var(--text2);cursor:pointer}
+.fb.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.form-gr{margin-bottom:10px}
+.form-lb{font-size:11px;color:var(--text2);margin-bottom:4px;display:block;font-weight:500}
+.form-in{width:100%;background:#f8fafc;border:1px solid var(--border);border-radius:7px;padding:6px 9px;font-size:12px;color:var(--text1);outline:none}
+.form-in:focus{border-color:var(--accent);background:#fff}
+select.form-in{cursor:pointer}
+textarea.form-in{resize:vertical}
+.tog{width:34px;height:18px;border-radius:9px;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;display:inline-block}
+.tog.on{background:var(--accent)}.tog.off{background:#cbd5e1}
+.tog::after{content:'';position:absolute;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s}
+.tog.on::after{left:18px}.tog.off::after{left:2px}
+.notif-panel{display:none;position:absolute;top:54px;right:12px;width:290px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px;z-index:99;box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.notif-item{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:11px;margin-bottom:6px}
+.notif-item.s{border-left:3px solid #16a34a;border-radius:0 8px 8px 0}
+.notif-item.w{border-left:3px solid #d97706;border-radius:0 8px 8px 0}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:12px;padding:20px;width:460px;max-height:88vh;overflow-y:auto;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,0.15)}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal-ti{font-size:14px;font-weight:700;color:var(--text1)}
+.modal-cl{cursor:pointer;font-size:20px;color:var(--text3);width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.modal-cl:hover{background:#fee2e2;color:#dc2626}
+.pg-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.pg-ttl{font-size:15px;font-weight:700;color:var(--text1)}
+.pip-wrap{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;min-height:360px}
+.pip-col{min-width:172px;flex:1}
+.pip-hd{font-size:11px;font-weight:600;padding:7px 10px;border-radius:7px 7px 0 0;display:flex;align-items:center;justify-content:space-between}
+.dcard{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;margin-top:6px;cursor:grab}
+.dcard:hover{border-color:var(--accent)}.dcard.drag-ov{border:2px dashed var(--accent2)}
+.dn{font-size:11px;font-weight:600;color:var(--text1);margin-bottom:3px}
+.dv{font-size:11px;color:var(--accent);font-weight:600}.dd{font-size:10px;color:var(--text3)}
+.conv-wrap{display:grid;grid-template-columns:240px 1fr;height:560px}
+.conv-list{border:1px solid var(--border);border-radius:10px 0 0 10px;overflow-y:auto;background:#fff}
+.conv-hd{padding:10px 12px;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;background:#f8fafc}
+.ci{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border)}
+.ci:hover{background:#f8fafc}.ci.on{background:#eff6ff}
+.chat-panel{border:1px solid var(--border);border-left:none;border-radius:0 10px 10px 0;display:flex;flex-direction:column;background:#fff}
+.chat-hd{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:#f8fafc}
+.chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.msg-in{align-self:flex-start;background:#f1f5f9;border-radius:0 8px 8px 8px;padding:8px 10px;font-size:11px;max-width:68%;line-height:1.5}
+.msg-out{align-self:flex-end;background:var(--accent);border-radius:8px 8px 0 8px;padding:8px 10px;font-size:11px;max-width:68%;color:#fff;line-height:1.5}
+.chat-inp{padding:10px;border-top:1px solid var(--border);display:flex;gap:6px;align-items:center;background:#f8fafc}
+.chat-inp input{flex:1;background:#fff;border:1px solid var(--border);border-radius:7px;padding:7px 10px;font-size:12px;outline:none}
+.ai-tog{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);padding:4px 8px;border:1px solid var(--accent2);border-radius:6px;cursor:pointer;font-weight:600;white-space:nowrap}
+.ai-tog.on{background:rgba(124,58,237,0.1);color:var(--accent2)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.cal-day{padding:5px;font-size:11px;border-radius:5px;cursor:pointer;position:relative}
+.cal-day:hover{background:#f1f5f9}.cal-day.today{background:var(--accent);color:#fff;font-weight:600}
+.cal-day.sel{background:#eff6ff;color:var(--accent);font-weight:600}
+.cal-day.has-ev::after{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--accent2);margin:1px auto 0}
+.ev-item{padding:8px;border-left:3px solid var(--accent);background:#f8fafc;border-radius:0 6px 6px 0;margin-bottom:6px}
+.ev-item.purple{border-color:var(--accent2)}.ev-item.amber{border-color:var(--accent4)}
+.ev-n{font-size:11px;font-weight:600}.ev-t{font-size:10px;color:var(--text3)}
+.sb-sec-hd{font-size:9px;font-weight:700;color:var(--text3);padding:8px 12px 3px;letter-spacing:.8px;text-transform:uppercase}
+.prop-sec{padding:12px}
+.prop-sec-hd{font-size:11px;font-weight:600;color:var(--text1);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.step-type{display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border)}
+.step-type:hover{background:#f8fafc}
+.funnel-step{width:100%;max-width:420px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;position:relative}
+.funnel-step:hover{border-color:var(--accent)}.funnel-step.sel{border:2px solid var(--accent)}
+.step-arrow{width:2px;height:26px;background:#cbd5e1;margin:0 auto;max-width:420px;position:relative}
+.step-arrow::after{content:'';position:absolute;bottom:-4px;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #cbd5e1}
+.step-del{position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;opacity:0;color:var(--text2)}
+.funnel-step:hover .step-del{opacity:1}.step-del:hover{background:#fee2e2;color:#dc2626}
+.drop-zone{border:2px dashed var(--border);border-radius:8px;padding:14px;text-align:center;font-size:11px;color:var(--text3);cursor:pointer;width:100%;max-width:420px;margin:10px 0}
+.drop-zone.hov{border-color:var(--accent);background:rgba(14,165,233,0.04)}
+.ed-blk-type{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border)}
+.ed-blk-type:hover{background:#f8fafc}
+.tmpl-card{padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer}
+.tmpl-card:hover{background:#f8fafc}
+.ed-tabs{display:flex;border-bottom:1px solid var(--border)}
+.ed-tab{flex:1;padding:9px 4px;text-align:center;font-size:11px;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;font-weight:500}
+.ed-tab.on{color:var(--accent);border-bottom-color:var(--accent)}
+.email-block{position:relative;cursor:pointer;border:2px solid transparent}
+.email-block:hover{border-color:rgba(14,165,233,0.35)}.email-block.sel{border-color:var(--accent)}
+.blk-del{position:absolute;top:4px;right:4px;width:20px;height:20px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;opacity:0;z-index:10}
+.email-block:hover .blk-del{opacity:1}
+.cdot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent}
+.cdot.sel{border-color:var(--text1)}.cdot:hover{transform:scale(1.1)}
+.ab-var{border:1px solid var(--border);border-radius:10px;padding:14px;background:#fff;position:relative}
+.ab-var.winner{border:2px solid var(--accent3)}
+.ab-metric{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)}
+.ab-metric:last-child{border:none}
+.ab-mk{font-size:11px;color:var(--text2)}.ab-mv{font-size:13px;font-weight:600}
+.stat-bar{height:5px;border-radius:3px;margin-top:3px;transition:width .6s}
+.conf-meter{height:10px;border-radius:5px;background:#f1f5f9;overflow:hidden;margin:8px 0}
+.conf-fill{height:100%;border-radius:5px;transition:width .6s}
+.sms-step{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 14px;max-width:400px;margin:0 auto;cursor:pointer;position:relative}
+.sms-step:hover{border-color:var(--accent)}.sms-step.sel{border:2px solid var(--accent)}
+.sms-arrow{width:2px;height:22px;background:#cbd5e1;margin:0 auto;max-width:400px;position:relative}
+.sms-arrow::after{content:'';position:absolute;bottom:-4px;left:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #cbd5e1}
+.sms-del{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;opacity:0}
+.sms-step:hover .sms-del{opacity:1}.sms-del:hover{background:#fee2e2;color:#dc2626}
+.delay-badge{background:rgba(245,158,11,0.1);border:1px solid var(--accent4);border-radius:6px;padding:3px 10px;font-size:10px;color:#92400e;width:fit-content;margin:0 auto;font-weight:600}
+.phone-mock{width:200px;margin:10px auto;background:#1a1a2e;border-radius:20px;padding:18px 12px;border:3px solid #2d2d44}
+.phone-bubble{background:var(--accent);color:#fff;border-radius:14px 14px 4px 14px;padding:8px 12px;font-size:11px;line-height:1.5;margin-bottom:6px}
+.phone-time{font-size:9px;color:#6b7280;text-align:right}
+.branch-wrap{display:flex;gap:10px;justify-content:center;max-width:500px;margin:0 auto}
+.branch-col{flex:1;display:flex;flex-direction:column;align-items:center}
+.node{position:absolute;width:180px;background:#fff;border:1px solid var(--border);border-radius:10px;cursor:pointer;user-select:none}
+.node:hover{border-color:var(--accent)}.node.sel{border:2px solid var(--accent)}
+.node-hd{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.node-ic{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.node-title{font-size:12px;font-weight:600;color:var(--text1)}.node-sub{font-size:10px;color:var(--text3)}
+.node-body{padding:8px 12px;font-size:11px;color:var(--text2)}
+.node-foot{padding:6px 12px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.node-port{width:10px;height:10px;border-radius:50%;border:2px solid #cbd5e1;background:#fff;cursor:crosshair}
+.node-port:hover{border-color:var(--accent);background:var(--accent)}
+.node-del{font-size:10px;color:var(--text3);cursor:pointer;padding:2px 4px;border-radius:4px}
+.node-del:hover{background:#fee2e2;color:#dc2626}
+.auto-ntype{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border)}
+.auto-ntype:hover{background:#f8fafc}
+.canvas-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.rt{padding:6px 14px;font-size:12px;border-radius:7px;cursor:pointer;border:1px solid var(--border);color:var(--text2);font-weight:500}
+.rt.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ptab{padding:5px 12px;font-size:11px;border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--text2);font-weight:500}
+.ptab.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.wf-item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.snap-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.snap-item:last-child{border:none}
+.tool-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.load-btn{padding:4px 8px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+<div class="sb">
+  <div class="sb-logo">
+    <div class="sb-li" style="background:linear-gradient(135deg,#0ea5e9,#7c3aed);font-size:12px;font-weight:800;letter-spacing:-0.5px">ZDS</div>
+    <div class="sb-lt">GHL Playground<small style="color:rgba(255,255,255,0.5)">by Zata Digital Solutions</small></div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Overview</div>
+    <div class="ni on" onclick="nav('dashboard',this)"><span class="ni-ic">▣</span><span>Dashboard</span></div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">CRM</div>
+    <div class="ni" onclick="nav('contacts',this)"><span class="ni-ic">👤</span><span>Contacts</span><span class="ni-bd" id="bd-c">28</span></div>
+    <div class="ni" onclick="nav('conversations',this)"><span class="ni-ic">💬</span><span>Conversations</span><span class="ni-bd">9</span></div>
+    <div class="ni" onclick="nav('pipeline',this)"><span class="ni-ic">◈</span><span>Opportunities</span></div>
+    <div class="ni" onclick="nav('calendars',this)"><span class="ni-ic">📅</span><span>Calendars</span></div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Marketing</div>
+    <div class="ni" onclick="nav('funnels',this)"><span class="ni-ic">⟁</span><span>Funnels</span></div>
+    <div class="ni" onclick="nav('emailmkt',this)"><span class="ni-ic">✉</span><span>Email marketing</span></div>
+    <div class="ni" onclick="nav('automation',this)"><span class="ni-ic">⚡</span><span>Automation</span></div>
+    <div class="ni" onclick="nav('sms',this)"><span class="ni-ic">📱</span><span>SMS campaigns</span></div>
+    <div class="ni" onclick="nav('sites',this)"><span class="ni-ic">◻</span><span>Sites</span></div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Tools</div>
+    <div class="ni" onclick="nav('builder',this)"><span class="ni-ic">⟁</span><span>Funnel builder</span></div>
+    <div class="ni" onclick="nav('emaildesigner',this)"><span class="ni-ic">✉</span><span>Email designer</span></div>
+    <div class="ni" onclick="nav('abtest',this)"><span class="ni-ic">◑</span><span>A/B split test</span></div>
+    <div class="ni" onclick="nav('smsseq',this)"><span class="ni-ic">💬</span><span>SMS sequences</span></div>
+    <div class="ni" onclick="nav('workflow',this)"><span class="ni-ic">⚡</span><span>Workflow editor</span></div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Revenue</div>
+    <div class="ni" onclick="nav('payments',this)"><span class="ni-ic">₱</span><span>Payments</span></div>
+    <div class="ni" onclick="nav('reporting',this)"><span class="ni-ic">📊</span><span>Reporting</span></div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Account</div>
+    <div class="ni" onclick="nav('snapshots',this)"><span class="ni-ic">◑</span><span>Snapshots</span></div>
+    <div class="ni" onclick="nav('settings',this)"><span class="ni-ic">⚙</span><span>Settings</span></div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="tb-title" id="pg-title">Dashboard</div>
+    <div class="sw"><span class="sw-ic">🔍</span><input type="text" placeholder="Search contacts, deals…" oninput="gSearch(this.value)"></div>
+    <div class="tb-acts">
+      <button class="btn-p" id="topbar-btn" onclick="topbarAct()">+ Add Contact</button>
+      <div style="position:relative;cursor:pointer" onclick="toggleNotifs()">
+        <span style="font-size:16px">🔔</span>
+        <span style="position:absolute;top:-3px;right:-3px;background:#ef4444;color:#fff;font-size:8px;padding:1px 4px;border-radius:8px;font-weight:700">3</span>
+      </div>
+      <div class="av" title="Bhel — Zata Digital Solutions" style="background:linear-gradient(135deg,#0ea5e9,#7c3aed)">B</div>
+    </div>
+  </div>
+
+  <div class="content" id="main-content">
+
+  <!-- DASHBOARD -->
+  <div class="pg on" id="pg-dashboard">
+    <div class="sg">
+      <div class="sc"><div class="sl">Total contacts</div><div class="sv" id="dash-c">1,284</div><div class="sch up">↑ 12% this month</div></div>
+      <div class="sc"><div class="sl">Open opportunities</div><div class="sv" id="dash-o">47</div><div class="sch up">↑ 8% this month</div></div>
+      <div class="sc"><div class="sl">Revenue (Apr)</div><div class="sv">₱284,500</div><div class="sch up">↑ 23% vs last</div></div>
+      <div class="sc"><div class="sl">Conversion rate</div><div class="sv">18.4%</div><div class="sch dn">↓ 2% this week</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="sh"><div class="st">Pipeline funnel</div><button class="btn-s" onclick="nav('pipeline',null)">View all</button></div>
+        <div class="brw">
+          <div class="br"><div class="bl">New lead</div><div class="bt"><div class="bf" style="width:85%;background:var(--accent)"></div></div><div class="bv">17 deals</div></div>
+          <div class="br"><div class="bl">Contacted</div><div class="bt"><div class="bf" style="width:62%;background:var(--accent2)"></div></div><div class="bv">12 deals</div></div>
+          <div class="br"><div class="bl">Proposal</div><div class="bt"><div class="bf" style="width:45%;background:var(--accent4)"></div></div><div class="bv">9 deals</div></div>
+          <div class="br"><div class="bl">Negotiation</div><div class="bt"><div class="bf" style="width:30%;background:#f97316"></div></div><div class="bv">6 deals</div></div>
+          <div class="br"><div class="bl">Closed won</div><div class="bt"><div class="bf" style="width:18%;background:var(--accent3)"></div></div><div class="bv">3 deals</div></div>
+        </div>
+      </div>
+      <div class="card"><div class="sh"><div class="st">Recent activity</div></div><div id="act-feed"></div></div>
+    </div>
+    <div class="g3">
+      <div class="card">
+        <div class="sh"><div class="st">Monthly goals</div></div>
+        <div class="pr-row"><span style="font-size:11px;color:var(--text2)">Revenue</span><span style="font-size:11px;font-weight:600">₱284k / ₱350k</span></div>
+        <div class="pr-bar"><div class="pr-fill" style="width:81%;background:var(--accent)"></div></div>
+        <div class="pr-row"><span style="font-size:11px;color:var(--text2)">New contacts</span><span style="font-size:11px;font-weight:600">128 / 200</span></div>
+        <div class="pr-bar"><div class="pr-fill" style="width:64%;background:var(--accent2)"></div></div>
+        <div class="pr-row"><span style="font-size:11px;color:var(--text2)">Deals closed</span><span style="font-size:11px;font-weight:600">3 / 10</span></div>
+        <div class="pr-bar"><div class="pr-fill" style="width:30%;background:var(--accent4)"></div></div>
+      </div>
+      <div class="card">
+        <div class="sh"><div class="st">Conversations</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="text-align:center;padding:9px;background:#f8fafc;border-radius:8px"><div style="font-size:20px;font-weight:600">23</div><div style="font-size:10px;color:var(--text2)">Open</div></div>
+          <div style="text-align:center;padding:9px;background:#f8fafc;border-radius:8px"><div style="font-size:20px;font-weight:600">9</div><div style="font-size:10px;color:var(--text2)">Unread</div></div>
+          <div style="text-align:center;padding:9px;background:#f8fafc;border-radius:8px"><div style="font-size:20px;font-weight:600">142</div><div style="font-size:10px;color:var(--text2)">This month</div></div>
+          <div style="text-align:center;padding:9px;background:#f8fafc;border-radius:8px"><div style="font-size:20px;font-weight:600;color:var(--accent3)">94%</div><div style="font-size:10px;color:var(--text2)">Response</div></div>
+        </div>
+      </div>
+      <div class="card"><div class="sh"><div class="st">Tasks</div><button class="btn-s" onclick="openModal('task')">+ Add</button></div><div id="task-list"></div></div>
+    </div>
+  </div>
+
+  <!-- CONTACTS -->
+  <div class="pg" id="pg-contacts">
+    <div class="pg-hd"><div class="pg-ttl">Contacts <span style="font-size:12px;font-weight:400;color:var(--text2)" id="c-count"></span></div>
+      <div style="display:flex;gap:7px"><button class="btn-s" onclick="expContacts()">Export CSV</button><button class="btn-p" onclick="openModal('contact')">+ Add Contact</button></div>
+    </div>
+    <div class="sub-nav"><div class="stab on" onclick="fltC('all',this)">All</div><div class="stab" onclick="fltC('lead',this)">Leads</div><div class="stab" onclick="fltC('customer',this)">Customers</div><div class="stab" onclick="fltC('prospect',this)">Prospects</div></div>
+    <div class="filt-bar">
+      <div class="fb on" onclick="fltSrc(this,'all')">All sources</div>
+      <div class="fb" onclick="fltSrc(this,'Facebook')">Facebook</div>
+      <div class="fb" onclick="fltSrc(this,'Google Ads')">Google Ads</div>
+      <div class="fb" onclick="fltSrc(this,'Website')">Website</div>
+      <div class="fb" onclick="fltSrc(this,'Referral')">Referral</div>
+    </div>
+    <div class="card" style="overflow-x:auto">
+      <table class="tbl"><thead><tr><th style="width:150px">Name</th><th style="width:165px">Email</th><th style="width:130px">Phone</th><th style="width:70px">Tag</th><th style="width:90px">Source</th><th style="width:100px">Stage</th><th style="width:80px">Active</th><th style="width:70px">Actions</th></tr></thead>
+      <tbody id="c-body"></tbody></table>
+    </div>
+  </div>
+
+  <!-- CONVERSATIONS -->
+  <div class="pg" id="pg-conversations">
+    <div class="pg-hd"><div class="pg-ttl">Conversations</div></div>
+    <div class="conv-wrap">
+      <div class="conv-list"><div class="conv-hd">All channels</div><div id="conv-list-items"></div></div>
+      <div class="chat-panel">
+        <div class="chat-hd">
+          <div class="av" id="chat-av" style="width:28px;height:28px;font-size:10px">MS</div>
+          <div><div style="font-size:12px;font-weight:600" id="chat-name">Maria Santos</div><div style="font-size:10px;color:var(--text3)" id="chat-ch">SMS · +63 917 123 4567</div></div>
+          <div style="margin-left:auto;display:flex;gap:6px"><button class="btn-s" style="font-size:10px;padding:3px 8px" onclick="openModal('note')">Note</button><button class="btn-s" style="font-size:10px;padding:3px 8px" onclick="openModal('task')">Task</button></div>
+        </div>
+        <div class="chat-msgs" id="chat-msgs"></div>
+        <div class="chat-inp">
+          <div class="ai-tog" id="ai-tog" onclick="toggleAI()">✦ AI Reply</div>
+          <input type="text" placeholder="Type a message… (Enter to send)" id="chat-in" onkeydown="if(event.key==='Enter')sendMsg()">
+          <button class="btn-p" onclick="sendMsg()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="pg" id="pg-pipeline">
+    <div class="pg-hd"><div class="pg-ttl">Pipeline <span style="font-size:11px;font-weight:400;color:var(--text2)" id="pip-tot"></span></div><button class="btn-p" onclick="openModal('deal')">+ Add Opportunity</button></div>
+    <div class="sub-nav"><div class="stab on">Sales pipeline</div><div class="stab">Service pipeline</div></div>
+    <div class="pip-wrap" id="pip-board"></div>
+  </div>
+
+  <!-- CALENDARS -->
+  <div class="pg" id="pg-calendars">
+    <div class="pg-hd"><div class="pg-ttl">Calendars</div><button class="btn-p" onclick="openModal('booking')">+ New booking</button></div>
+    <div class="g2">
+      <div class="card">
+        <div class="sh"><div class="st">April 2026</div><div style="display:flex;gap:5px"><button class="btn-s" style="padding:3px 7px;font-size:11px">&lt;</button><button class="btn-s" style="padding:3px 7px;font-size:11px">&gt;</button></div></div>
+        <div class="cal-grid" style="margin-bottom:6px" id="cal-hd"></div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+      <div class="card">
+        <div class="sh"><div class="st" id="cal-sel-dt">April 12 — Today</div></div>
+        <div id="cal-evs"></div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+          <div class="st" style="margin-bottom:8px;font-size:12px">Upcoming</div>
+          <div id="cal-up"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUNNELS PAGE -->
+  <div class="pg" id="pg-funnels">
+    <div class="pg-hd"><div class="pg-ttl">Funnels & websites</div><button class="btn-p" onclick="nav('builder',null)">+ Open funnel builder</button></div>
+    <div id="funnel-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px"></div>
+  </div>
+
+  <!-- EMAIL MARKETING PAGE -->
+  <div class="pg" id="pg-emailmkt">
+    <div class="pg-hd"><div class="pg-ttl">Email marketing</div><button class="btn-p" onclick="nav('emaildesigner',null)">+ Create campaign</button></div>
+    <div class="g3" style="margin-bottom:14px">
+      <div class="sc"><div class="sl">Emails sent (Apr)</div><div class="sv">3,428</div><div class="sch up">↑ 18%</div></div>
+      <div class="sc"><div class="sl">Avg open rate</div><div class="sv">38.4%</div><div class="sch nt">≈ industry avg</div></div>
+      <div class="sc"><div class="sl">Avg click rate</div><div class="sv">12.1%</div><div class="sch up">↑ 4%</div></div>
+    </div>
+    <div class="card">
+      <table class="tbl"><thead><tr><th>Campaign</th><th style="width:80px">Status</th><th style="width:60px">Sent</th><th style="width:70px">Open rate</th><th style="width:70px">Click rate</th><th style="width:80px">Date</th><th style="width:70px">Edit</th></tr></thead>
+      <tbody>
+        <tr><td>Welcome series — onboarding</td><td><span class="tag t-act">Active</span></td><td>534</td><td>42%</td><td>18%</td><td>Apr 10</td><td><button class="btn-s" style="font-size:10px;padding:2px 7px" onclick="nav('emaildesigner',null)">Edit</button></td></tr>
+        <tr><td>April promo blast</td><td><span class="tag t-new">Scheduled</span></td><td>—</td><td>—</td><td>—</td><td>Apr 15</td><td><button class="btn-s" style="font-size:10px;padding:2px 7px">Edit</button></td></tr>
+        <tr><td>Re-engagement — cold leads</td><td><span class="tag t-pau">Paused</span></td><td>128</td><td>21%</td><td>6%</td><td>Apr 3</td><td><button class="btn-s" style="font-size:10px;padding:2px 7px">Edit</button></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- AUTOMATION PAGE -->
+  <div class="pg" id="pg-automation">
+    <div class="pg-hd"><div class="pg-ttl">Automation workflows</div><button class="btn-p" onclick="nav('workflow',null)">+ Open workflow editor</button></div>
+    <div id="wf-list"></div>
+  </div>
+
+  <!-- SMS PAGE -->
+  <div class="pg" id="pg-sms">
+    <div class="pg-hd"><div class="pg-ttl">SMS campaigns</div><button class="btn-p" onclick="nav('smsseq',null)">+ Build SMS sequence</button></div>
+    <div class="g2" style="margin-bottom:14px">
+      <div class="sc"><div class="sl">SMS sent (Apr)</div><div class="sv">1,842</div><div class="sch up">↑ 9%</div></div>
+      <div class="sc"><div class="sl">Delivery rate</div><div class="sv">96.2%</div><div class="sch up">↑ 1.2%</div></div>
+    </div>
+    <div class="card">
+      <div class="sh"><div class="st">Send broadcast SMS</div></div>
+      <div class="form-gr"><label class="form-lb">Audience</label><select class="form-in"><option>All leads</option><option>Customers</option><option>Hot prospects</option></select></div>
+      <div class="form-gr"><label class="form-lb">Message (160 chars)</label><textarea class="form-in" rows="3" id="sms-txt" maxlength="160" oninput="document.getElementById('sms-cnt').textContent=this.value.length+'/160'" placeholder="Hi {first_name}, we have a special offer…"></textarea><div style="font-size:10px;color:var(--text3);text-align:right" id="sms-cnt">0/160</div></div>
+      <button class="btn-p" onclick="toast('SMS blast queued!')">Send SMS blast</button>
+    </div>
+  </div>
+
+  <!-- SITES -->
+  <div class="pg" id="pg-sites">
+    <div class="pg-hd"><div class="pg-ttl">Sites & membership</div><button class="btn-p">+ Create site</button></div>
+    <div id="sites-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px"></div>
+  </div>
+
+  <!-- PAYMENTS -->
+  <div class="pg" id="pg-payments">
+    <div class="pg-hd"><div class="pg-ttl">Payments</div><button class="btn-p" onclick="openModal('invoice')">+ New invoice</button></div>
+    <div class="sg">
+      <div class="sc"><div class="sl">Revenue (Apr)</div><div class="sv">₱284,500</div><div class="sch up">↑ 23%</div></div>
+      <div class="sc"><div class="sl">Pending invoices</div><div class="sv">₱67,000</div><div class="sch nt">5 invoices</div></div>
+      <div class="sc"><div class="sl">Overdue</div><div class="sv">₱12,500</div><div class="sch dn">2 overdue</div></div>
+      <div class="sc"><div class="sl">Subscriptions</div><div class="sv">14</div><div class="sch up">↑ 3 new</div></div>
+    </div>
+    <div class="card">
+      <div class="sh"><div class="st">Recent transactions</div></div>
+      <table class="tbl"><thead><tr><th>Contact</th><th>Description</th><th style="width:90px">Amount</th><th style="width:70px">Status</th><th style="width:80px">Date</th></tr></thead>
+      <tbody>
+        <tr><td>Juan Dela Cruz</td><td>BPO Package — Monthly</td><td>₱45,000</td><td><span class="tag t-cust">Paid</span></td><td>Apr 10</td></tr>
+        <tr><td>Roberto Go</td><td>Full Suite Retainer</td><td>₱30,000</td><td><span class="tag t-cust">Paid</span></td><td>Apr 8</td></tr>
+        <tr><td>Ana Cruz</td><td>Funnel Setup — 50% DP</td><td>₱17,500</td><td><span class="tag t-pros">Pending</span></td><td>Apr 11</td></tr>
+        <tr><td>Peter Lim</td><td>Website Package</td><td>₱35,000</td><td><span class="tag t-hot">Overdue</span></td><td>Mar 28</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- REPORTING -->
+  <div class="pg" id="pg-reporting">
+    <div class="pg-hd"><div class="pg-ttl">Reporting & analytics</div></div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <div class="rt on" onclick="repTab(this)">Overview</div>
+      <div class="rt" onclick="repTab(this)">Funnel stats</div>
+      <div class="rt" onclick="repTab(this)">Email</div>
+      <div class="rt" onclick="repTab(this)">SMS</div>
+    </div>
+    <div class="sg">
+      <div class="sc"><div class="sl">Leads this month</div><div class="sv">128</div><div class="sch up">↑ 22%</div></div>
+      <div class="sc"><div class="sl">Avg deal value</div><div class="sv">₱38,200</div><div class="sch up">↑ 14%</div></div>
+      <div class="sc"><div class="sl">Email open rate</div><div class="sv">38.4%</div><div class="sch dn">↓ 3%</div></div>
+      <div class="sc"><div class="sl">SMS response rate</div><div class="sv">61%</div><div class="sch up">↑ 5%</div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="sh"><div class="st">Revenue by source</div></div><div class="brw">
+        <div class="br"><div class="bl">Facebook</div><div class="bt"><div class="bf" style="width:72%;background:var(--accent)"></div></div><div class="bv">₱104k</div></div>
+        <div class="br"><div class="bl">Referral</div><div class="bt"><div class="bf" style="width:55%;background:var(--accent2)"></div></div><div class="bv">₱80k</div></div>
+        <div class="br"><div class="bl">Google</div><div class="bt"><div class="bf" style="width:38%;background:var(--accent4)"></div></div><div class="bv">₱55k</div></div>
+        <div class="br"><div class="bl">Organic</div><div class="bt"><div class="bf" style="width:22%;background:var(--accent3)"></div></div><div class="bv">₱32k</div></div>
+      </div></div>
+      <div class="card"><div class="sh"><div class="st">Contact growth</div></div><div class="brw">
+        <div class="br"><div class="bl" style="width:44px">Week 1</div><div class="bt"><div class="bf" style="width:45%;background:var(--accent)"></div></div><div class="bv">+24</div></div>
+        <div class="br"><div class="bl" style="width:44px">Week 2</div><div class="bt"><div class="bf" style="width:62%;background:var(--accent)"></div></div><div class="bv">+33</div></div>
+        <div class="br"><div class="bl" style="width:44px">Week 3</div><div class="bt"><div class="bf" style="width:55%;background:var(--accent)"></div></div><div class="bv">+29</div></div>
+        <div class="br"><div class="bl" style="width:44px">Week 4</div><div class="bt"><div class="bf" style="width:78%;background:var(--accent)"></div></div><div class="bv">+42</div></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SNAPSHOTS -->
+  <div class="pg" id="pg-snapshots">
+    <div class="pg-hd"><div class="pg-ttl">Account snapshots</div></div>
+    <div class="card"><div class="sh"><div class="st">Available snapshots</div><button class="btn-p">Import snapshot</button></div><div id="snap-list"></div></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="pg" id="pg-settings">
+    <div class="pg-hd"><div class="pg-ttl">Settings</div></div>
+    <div class="sub-nav">
+      <div class="stab on" onclick="setTab(this,'biz')">Business info</div>
+      <div class="stab" onclick="setTab(this,'integrations')">Integrations</div>
+      <div class="stab" onclick="setTab(this,'team')">Team</div>
+      <div class="stab" onclick="setTab(this,'phone')">Phone numbers</div>
+    </div>
+    <div id="settings-biz">
+      <div class="g2">
+        <div class="card">
+          <div class="st" style="margin-bottom:12px">Business info</div>
+          <div class="form-gr"><label class="form-lb">Business name</label><input class="form-in" id="biz-name" oninput="liveUpdBiz()" placeholder="Zata Digital Solutions"></div>
+          <div class="form-gr"><label class="form-lb">Owner / admin name</label><input class="form-in" id="biz-owner" oninput="liveUpdBiz()" placeholder="Bhel"></div>
+          <div class="form-gr"><label class="form-lb">Email</label><input class="form-in" id="biz-email" oninput="liveUpdBiz()" type="email" placeholder="bhel@zatadigitalsolutions.com"></div>
+          <div class="form-gr"><label class="form-lb">Phone</label><input class="form-in" id="biz-phone" oninput="liveUpdBiz()" placeholder="+63 917 000 0000"></div>
+          <div class="form-gr"><label class="form-lb">SMS / business number</label><input class="form-in" id="biz-sms" oninput="liveUpdBiz()" placeholder="+63 917 000 1234"></div>
+          <div class="form-gr"><label class="form-lb">Address</label><input class="form-in" id="biz-address" oninput="liveUpdBiz()" placeholder="Cebu City, Philippines"></div>
+          <div class="form-gr"><label class="form-lb">Timezone</label><select class="form-in" id="biz-tz" onchange="liveUpdBiz()"><option>Asia/Manila (GMT+8)</option><option>UTC</option><option>America/New_York (GMT-5)</option><option>Europe/London (GMT+0)</option></select></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+            <button class="btn-p" onclick="saveBiz()">Save changes</button>
+            <span id="biz-saved" style="font-size:11px;color:var(--accent3);display:none">✓ Saved — Team &amp; Phone updated!</span>
+          </div>
+        </div>
+        <div class="card"><div class="st" style="margin-bottom:12px">Notifications</div><div id="notif-settings"></div></div>
+      </div>
+    </div>
+    <div id="settings-integrations" style="display:none"><div class="card"><div class="st" style="margin-bottom:12px">Integrations</div><div id="integrations-list"></div></div></div>
+    <div id="settings-team" style="display:none"><div class="card"><div class="sh"><div class="st">Team members</div><button class="btn-p" onclick="openModal('team')">+ Invite</button></div><div id="team-table"></div></div></div>
+    <div id="settings-phone" style="display:none"><div class="card"><div class="sh"><div class="st">Phone numbers</div><button class="btn-p" onclick="toast('Contact your provider to buy a new number.')">+ Buy number</button></div><div id="phone-table"></div></div></div>
+  </div>
+
+  <!-- FUNNEL BUILDER TOOL -->
+  <div class="pg" id="pg-builder">
+    <div class="tool-bar" style="margin:-16px -16px 0">
+      <input class="form-in" id="funnel-name" value="Lead Gen Funnel #1" style="width:200px;font-weight:600">
+      <div style="font-size:11px;color:var(--text2)" id="f-step-cnt">0 steps</div>
+      <div style="margin-left:auto;display:flex;gap:7px">
+        <button class="btn-s" onclick="toast('Preview: bhel-agency.ph/'+document.getElementById('funnel-name').value.toLowerCase().replace(/\\s+/g,'-'))">Preview</button>
+        <button class="btn-s" onclick="toast('Total visitors: '+fSteps.reduce((a,s)=>a+((sDefs[s.type]||{}).visitors||0),0).toLocaleString())">Stats</button>
+        <button class="btn-p" onclick="toast('Funnel saved!')">Save funnel</button>
+      </div>
+    </div>
+    <div style="display:flex;height:calc(100vh - 132px);margin:0 -16px;overflow:hidden">
+      <div style="width:216px;min-width:216px;background:#fff;border-right:1px solid var(--border);overflow-y:auto">
+        <div class="sb-sec-hd">Page types</div>
+        <div class="step-type" onclick="addFStep('optin')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(14,165,233,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">◉</div><div><div style="font-size:12px;font-weight:600">Opt-in page</div><div style="font-size:10px;color:var(--text2)">Capture lead info</div></div></div>
+        <div class="step-type" onclick="addFStep('sales')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(124,58,237,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">₱</div><div><div style="font-size:12px;font-weight:600">Sales page</div><div style="font-size:10px;color:var(--text2)">Present your offer</div></div></div>
+        <div class="step-type" onclick="addFStep('order')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">◻</div><div><div style="font-size:12px;font-weight:600">Order form</div><div style="font-size:10px;color:var(--text2)">Collect payment</div></div></div>
+        <div class="step-type" onclick="addFStep('upsell')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">↑</div><div><div style="font-size:12px;font-weight:600">Upsell page</div><div style="font-size:10px;color:var(--text2)">Increase order value</div></div></div>
+        <div class="step-type" onclick="addFStep('thankyou')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">✓</div><div><div style="font-size:12px;font-weight:600">Thank you page</div><div style="font-size:10px;color:var(--text2)">Post-conversion</div></div></div>
+        <div class="step-type" onclick="addFStep('webinar')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(99,153,34,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">▶</div><div><div style="font-size:12px;font-weight:600">Webinar page</div><div style="font-size:10px;color:var(--text2)">Webinar registration</div></div></div>
+        <div class="step-type" onclick="addFStep('survey')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(14,165,233,0.1);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">?</div><div><div style="font-size:12px;font-weight:600">Survey / Quiz</div><div style="font-size:10px;color:var(--text2)">Qualify your leads</div></div></div>
+        <div class="step-type" onclick="addFStep('appointment')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(124,58,237,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">📅</div><div><div style="font-size:12px;font-weight:600">Appointment</div><div style="font-size:10px;color:var(--text2)">Book a call step</div></div></div>
+        <div class="sb-sec-hd" style="margin-top:4px">Templates</div>
+        <div class="step-type" style="flex-direction:column;align-items:flex-start;gap:2px" onclick="loadFTpl('leadmagnet')"><div style="font-size:12px;font-weight:600">Lead magnet</div><div style="font-size:10px;color:var(--text2)">Opt-in → Thank you</div></div>
+        <div class="step-type" style="flex-direction:column;align-items:flex-start;gap:2px" onclick="loadFTpl('tripwire')"><div style="font-size:12px;font-weight:600">Tripwire funnel</div><div style="font-size:10px;color:var(--text2)">Opt-in → Sales → Order → TY</div></div>
+        <div class="step-type" style="flex-direction:column;align-items:flex-start;gap:2px" onclick="loadFTpl('webinar')"><div style="font-size:12px;font-weight:600">Webinar funnel</div><div style="font-size:10px;color:var(--text2)">Reg → Confirm → Replay</div></div>
+        <div class="step-type" style="flex-direction:column;align-items:flex-start;gap:2px" onclick="loadFTpl('highticket')"><div style="font-size:12px;font-weight:600">High-ticket</div><div style="font-size:10px;color:var(--text2)">VSL → Survey → Book call</div></div>
+      </div>
+      <div style="flex:1;background:#f8fafc;overflow-y:auto;padding:24px;display:flex;flex-direction:column;align-items:center" id="funnel-canvas"></div>
+      <div style="width:240px;min-width:240px;background:#fff;border-left:1px solid var(--border);overflow-y:auto">
+        <div id="f-props-ph" style="padding:20px;text-align:center;color:var(--text2)"><div style="font-size:24px;margin-bottom:8px">◉</div><div style="font-size:12px">Click a step to edit properties</div></div>
+        <div id="f-props" style="display:none">
+          <div class="prop-sec">
+            <div class="prop-sec-hd" id="f-props-title">Step settings</div>
+            <div class="form-gr"><label class="form-lb">Step name</label><input class="form-in" id="prop-name" oninput="updProp('name',this.value)"></div>
+            <div class="form-gr"><label class="form-lb">URL path</label><input class="form-in" id="prop-url" oninput="updProp('url',this.value)"></div>
+            <div class="form-gr"><label class="form-lb">Template</label><select class="form-in"><option>Classic centered</option><option>Split layout</option><option>Video + form</option><option>Bold headline</option></select></div>
+            <div class="form-gr"><label class="form-lb">Background</label><select class="form-in"><option>White</option><option>Light gray</option><option>Dark</option><option>Blue</option></select></div>
+          </div>
+          <div class="prop-sec" style="border-top:1px solid var(--border)">
+            <div class="prop-sec-hd">Traffic & conversion</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div style="text-align:center;padding:8px;background:#f8fafc;border-radius:7px"><div style="font-size:16px;font-weight:600" id="prop-vis">—</div><div style="font-size:10px;color:var(--text2)">Visitors</div></div>
+              <div style="text-align:center;padding:8px;background:#f8fafc;border-radius:7px"><div style="font-size:16px;font-weight:600;color:var(--accent3)" id="prop-cv">—</div><div style="font-size:10px;color:var(--text2)">Conv. rate</div></div>
+            </div>
+          </div>
+          <div class="prop-sec" style="border-top:1px solid var(--border)">
+            <div class="prop-sec-hd">Actions</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="btn-p" style="width:100%;font-size:11px" onclick="toast('Page editor opens in real GHL!')">Open page editor</button>
+              <button class="btn-s" style="width:100%;font-size:11px" onclick="dupFStep()">Duplicate step</button>
+              <button class="btn-s" style="width:100%;font-size:11px;color:#dc2626;border-color:#dc2626" onclick="delFStep()">Delete step</button>
+            </div>
+          </div>
+          <div class="prop-sec" style="border-top:1px solid var(--border)">
+            <div class="prop-sec-hd">On submit</div>
+            <div class="form-gr"><label class="form-lb">Go to</label><select class="form-in"><option>Next step in funnel</option><option>Specific URL</option><option>End funnel</option></select></div>
+            <div class="form-gr"><label class="form-lb">Trigger automation</label><select class="form-in"><option>None</option><option>Welcome sequence</option><option>Lead nurture</option></select></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL DESIGNER TOOL -->
+  <div class="pg" id="pg-emaildesigner">
+    <div class="tool-bar" style="margin:-16px -16px 0">
+      <input class="form-in" id="email-name" value="Welcome email — New lead" style="width:220px;font-weight:600">
+      <div style="font-size:11px;color:var(--text2)" id="blk-cnt">0 blocks</div>
+      <div style="margin-left:auto;display:flex;gap:7px;align-items:center">
+        <div style="display:flex;gap:5px">
+          <div class="ptab on" onclick="setPvMode('desktop',this)">Desktop</div>
+          <div class="ptab" onclick="setPvMode('mobile',this)">Mobile</div>
+        </div>
+        <button class="btn-s" onclick="toast('Test email sent to bhel@myagency.ph!')">Send test</button>
+        <button class="btn-p" onclick="toast('Email template saved!')">Save template</button>
+      </div>
+    </div>
+    <div style="display:flex;height:calc(100vh - 132px);margin:0 -16px;overflow:hidden">
+      <div style="width:216px;min-width:216px;background:#fff;border-right:1px solid var(--border);overflow-y:auto">
+        <div class="ed-tabs"><div class="ed-tab on" onclick="edSTab(this,'blocks')">Blocks</div><div class="ed-tab" onclick="edSTab(this,'templates')">Templates</div></div>
+        <div id="ed-blks-panel">
+          <div class="sb-sec-hd">Content blocks</div>
+          <div class="ed-blk-type" onclick="addEBlk('header')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(14,165,233,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">H</div><div><div style="font-size:12px;font-weight:600">Header / logo</div><div style="font-size:10px;color:var(--text2)">Brand header</div></div></div>
+          <div class="ed-blk-type" onclick="addEBlk('headline')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(124,58,237,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">T</div><div><div style="font-size:12px;font-weight:600">Headline</div><div style="font-size:10px;color:var(--text2)">Big text block</div></div></div>
+          <div class="ed-blk-type" onclick="addEBlk('text')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(99,153,34,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">¶</div><div><div style="font-size:12px;font-weight:600">Text paragraph</div><div style="font-size:10px;color:var(--text2)">Body copy</div></div></div>
+          <div class="ed-blk-type" onclick="addEBlk('button')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">→</div><div><div style="font-size:12px;font-weight:600">Button / CTA</div><div style="font-size:10px;color:var(--text2)">Call-to-action</div></div></div>
+          <div class="ed-blk-type" onclick="addEBlk('image')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">⬜</div><div><div style="font-size:12px;font-weight:600">Image</div><div style="font-size:10px;color:var(--text2)">Add an image</div></div></div>
+          <div class="ed-blk-type" onclick="addEBlk('divider')"><div style="width:28px;height:28px;border-radius:6px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">—</div><div><div style="font-size:12px;font-weight:600">Divider</div><div style="font-size:10px;color:var(--text2)">Visual separator</div></div></div>
+          <div class="ed-blk-type" onclick="addEBlk('twoCol')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(124,58,237,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">⊞</div><div><div style="font-size:12px;font-weight:600">2-column</div><div style="font-size:10px;color:var(--text2)">Side by side</div></div></div>
+          <div class="ed-blk-type" onclick="addEBlk('bullets')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(16,163,74,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">≡</div><div><div style="font-size:12px;font-weight:600">Bullet list</div><div style="font-size:10px;color:var(--text2)">Feature list</div></div></div>
+          <div class="ed-blk-type" onclick="addEBlk('footer')"><div style="width:28px;height:28px;border-radius:6px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">⊥</div><div><div style="font-size:12px;font-weight:600">Footer</div><div style="font-size:10px;color:var(--text2)">Unsubscribe etc.</div></div></div>
+          <div class="sb-sec-hd" style="margin-top:4px">Personalization tokens</div>
+          <div style="padding:8px 12px;display:flex;flex-wrap:wrap;gap:5px">
+            <span onclick="toast('Click a text block and type {first_name}')" style="background:#f1f5f9;border:1px solid var(--border);border-radius:5px;padding:2px 7px;font-size:10px;cursor:pointer;font-weight:600">{first_name}</span>
+            <span onclick="toast('Token: {last_name}')" style="background:#f1f5f9;border:1px solid var(--border);border-radius:5px;padding:2px 7px;font-size:10px;cursor:pointer;font-weight:600">{last_name}</span>
+            <span onclick="toast('Token: {email}')" style="background:#f1f5f9;border:1px solid var(--border);border-radius:5px;padding:2px 7px;font-size:10px;cursor:pointer;font-weight:600">{email}</span>
+            <span onclick="toast('Token: {company}')" style="background:#f1f5f9;border:1px solid var(--border);border-radius:5px;padding:2px 7px;font-size:10px;cursor:pointer;font-weight:600">{company}</span>
+          </div>
+        </div>
+        <div id="ed-tpls-panel" style="display:none">
+          <div class="sb-sec-hd">Email templates</div>
+          <div class="tmpl-card" onclick="loadETpl('welcome')"><div style="font-size:12px;font-weight:600">Welcome email</div><div style="font-size:10px;color:var(--text2)">Onboard new leads</div></div>
+          <div class="tmpl-card" onclick="loadETpl('promo')"><div style="font-size:12px;font-weight:600">Promo blast</div><div style="font-size:10px;color:var(--text2)">Limited time offer</div></div>
+          <div class="tmpl-card" onclick="loadETpl('followup')"><div style="font-size:12px;font-weight:600">Follow-up nurture</div><div style="font-size:10px;color:var(--text2)">3-day after opt-in</div></div>
+          <div class="tmpl-card" onclick="loadETpl('abandoned')"><div style="font-size:12px;font-weight:600">Cart abandoned</div><div style="font-size:10px;color:var(--text2)">Recover lost sales</div></div>
+          <div class="tmpl-card" onclick="loadETpl('appointment')"><div style="font-size:12px;font-weight:600">Appointment confirm</div><div style="font-size:10px;color:var(--text2)">Booking confirmation</div></div>
+          <div class="tmpl-card" onclick="loadETpl('newsletter')"><div style="font-size:12px;font-weight:600">Newsletter</div><div style="font-size:10px;color:var(--text2)">Monthly update</div></div>
+        </div>
+      </div>
+      <div style="flex:1;background:#f1f5f9;overflow-y:auto;padding:20px;display:flex;justify-content:center">
+        <div id="email-frame" style="width:520px;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;min-height:400px"></div>
+      </div>
+      <div style="width:240px;min-width:240px;background:#fff;border-left:1px solid var(--border);overflow-y:auto">
+        <div id="blk-ph" style="padding:20px;text-align:center;color:var(--text2)"><div style="font-size:24px;margin-bottom:8px">✉</div><div style="font-size:12px">Click a block to edit it</div></div>
+        <div id="blk-props" style="display:none">
+          <div class="prop-sec">
+            <div class="prop-sec-hd" id="blk-props-title">Block settings</div>
+            <div id="blk-props-content"></div>
+          </div>
+          <div class="prop-sec" style="border-top:1px solid var(--border)">
+            <div class="prop-sec-hd">Background</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap" id="blk-bg-dots">
+              <div class="cdot sel" style="background:#ffffff" onclick="setBg('#ffffff',this)"></div>
+              <div class="cdot" style="background:#f8fafc" onclick="setBg('#f8fafc',this)"></div>
+              <div class="cdot" style="background:#0ea5e9" onclick="setBg('#0ea5e9',this)"></div>
+              <div class="cdot" style="background:#7c3aed" onclick="setBg('#7c3aed',this)"></div>
+              <div class="cdot" style="background:#0f172a" onclick="setBg('#0f172a',this)"></div>
+              <div class="cdot" style="background:#16a34a" onclick="setBg('#16a34a',this)"></div>
+            </div>
+          </div>
+          <div class="prop-sec" style="border-top:1px solid var(--border)">
+            <div class="prop-sec-hd">Actions</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="btn-s" style="width:100%;font-size:11px" onclick="moveBlk(-1)">Move up</button>
+              <button class="btn-s" style="width:100%;font-size:11px" onclick="moveBlk(1)">Move down</button>
+              <button class="btn-s" style="width:100%;font-size:11px" onclick="dupeBlk()">Duplicate</button>
+              <button class="btn-s" style="width:100%;font-size:11px;color:#dc2626;border-color:#dc2626" onclick="delBlk()">Delete block</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A/B TEST TOOL -->
+  <div class="pg" id="pg-abtest">
+    <div class="tool-bar" style="margin:-16px -16px 12px">
+      <input class="form-in" id="ab-name" value="Homepage opt-in — April test" style="width:240px;font-weight:600">
+      <select class="form-in" style="width:140px"><option>Email subject line</option><option>Landing page</option><option>SMS message</option><option>CTA button</option></select>
+      <div style="margin-left:auto;display:flex;gap:7px">
+        <button class="btn-s" onclick="resetAB()">Reset</button>
+        <button class="btn-s" onclick="simAB()">Simulate traffic</button>
+        <button class="btn-p" onclick="declareWin()">Declare winner</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <div style="flex:2;min-width:280px">
+        <div style="display:flex;gap:12px;margin-bottom:14px">
+          <div class="ab-var" id="var-a" style="flex:1">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13px;font-weight:600"><span style="background:var(--accent);color:#fff;padding:2px 8px;border-radius:5px;font-size:11px">A</span><input class="form-in" style="border:none;background:transparent;font-weight:600;padding:0;flex:1;font-size:13px" value="Original variant"></div>
+            <div class="form-gr"><label class="form-lb">Subject / content</label><input class="form-in" value="[FREE] The ultimate lead gen guide for Filipino businesses"></div>
+            <div id="va-metrics"></div><div id="va-badge"></div>
+          </div>
+          <div class="ab-var" id="var-b" style="flex:1">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13px;font-weight:600"><span style="background:var(--accent2);color:#fff;padding:2px 8px;border-radius:5px;font-size:11px">B</span><input class="form-in" style="border:none;background:transparent;font-weight:600;padding:0;flex:1;font-size:13px" value="Test variant"></div>
+            <div class="form-gr"><label class="form-lb">Subject / content</label><input class="form-in" value="How I doubled my agency revenue in 90 days (step-by-step)"></div>
+            <div id="vb-metrics"></div><div id="vb-badge"></div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-size:12px;font-weight:600;margin-bottom:10px">Traffic split</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:11px;color:var(--accent);font-weight:700;width:36px" id="sp-a">50%</span>
+            <input type="range" min="10" max="90" value="50" step="5" id="sp-slider" oninput="updSplit(this.value)" style="flex:1">
+            <span style="font-size:11px;color:var(--accent2);font-weight:700;width:36px;text-align:right" id="sp-b">50%</span>
+          </div>
+          <div style="height:12px;border-radius:6px;overflow:hidden;display:flex">
+            <div id="sp-bar" style="background:var(--accent);width:50%;transition:width .3s"></div>
+            <div style="flex:1;background:var(--accent2)"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;font-weight:600;margin-bottom:10px">Statistical confidence</div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:var(--text2)">Confidence level</span><span style="font-size:12px;font-weight:600" id="conf-pct">—</span></div>
+          <div class="conf-meter"><div class="conf-fill" id="conf-fill" style="width:0%;background:var(--accent3)"></div></div>
+          <div style="font-size:11px;color:var(--text2)" id="conf-lbl">Run the test to see results</div>
+          <div style="margin-top:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="ab-sum"></div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:220px">
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-size:12px;font-weight:600;margin-bottom:10px">Test settings</div>
+          <div class="form-gr"><label class="form-lb">Goal metric</label><select class="form-in"><option>Open rate</option><option>Click rate</option><option>Conversion rate</option></select></div>
+          <div class="form-gr"><label class="form-lb">Min. sample size</label><select class="form-in"><option>100</option><option>250</option><option selected>500</option><option>1,000</option></select></div>
+          <div class="form-gr"><label class="form-lb">Auto-pick winner at</label><select class="form-in"><option>80%</option><option selected>95%</option><option>99%</option></select></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px"><span style="font-size:11px;color:var(--text2)">Auto-send winner</span><div class="tog on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div></div>
+        </div>
+        <div class="card"><div style="font-size:12px;font-weight:600;margin-bottom:10px">Test history</div><div id="ab-hist"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SMS SEQUENCE TOOL -->
+  <div class="pg" id="pg-smsseq">
+    <div class="tool-bar" style="margin:-16px -16px 0">
+      <input class="form-in" id="sms-seq-name" value="New lead nurture — 7 day sequence" style="width:260px;font-weight:600">
+      <select class="form-in" style="width:150px"><option>Trigger: Contact form</option><option>Trigger: Tag applied</option><option>Trigger: Payment</option></select>
+      <div style="margin-left:auto;display:flex;gap:7px;align-items:center">
+        <span style="font-size:11px;color:var(--text2)">Active</span><div class="tog on" onclick="this.classList.toggle('on');this.classList.toggle('off')"></div>
+        <button class="btn-s" onclick="clrSms()">Clear all</button>
+        <button class="btn-p" onclick="toast('Sequence saved — '+smsSteps.length+' steps!')">Save sequence</button>
+      </div>
+    </div>
+    <div style="display:flex;height:calc(100vh - 132px);margin:0 -16px;overflow:hidden">
+      <div style="width:230px;min-width:230px;background:#fff;border-right:1px solid var(--border);overflow-y:auto">
+        <div class="sb-sec-hd">Add step</div>
+        <div class="step-type" onclick="addSms('sms')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(14,165,233,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">💬</div><div><div style="font-size:12px;font-weight:600">Send SMS</div><div style="font-size:10px;color:var(--text2)">Text message</div></div></div>
+        <div class="step-type" onclick="addSms('delay')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">⏱</div><div><div style="font-size:12px;font-weight:600">Wait / Delay</div><div style="font-size:10px;color:var(--text2)">Pause before next</div></div></div>
+        <div class="step-type" onclick="addSms('condition')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(124,58,237,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">◈</div><div><div style="font-size:12px;font-weight:600">Condition / Branch</div><div style="font-size:10px;color:var(--text2)">If/else split</div></div></div>
+        <div class="step-type" onclick="addSms('tag')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🏷</div><div><div style="font-size:12px;font-weight:600">Add / Remove tag</div><div style="font-size:10px;color:var(--text2)">Update contact</div></div></div>
+        <div class="step-type" onclick="addSms('email')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(239,68,68,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">✉</div><div><div style="font-size:12px;font-weight:600">Send email</div><div style="font-size:10px;color:var(--text2)">Trigger email</div></div></div>
+        <div class="step-type" onclick="addSms('task')"><div style="width:28px;height:28px;border-radius:6px;background:rgba(107,114,128,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">✓</div><div><div style="font-size:12px;font-weight:600">Create task</div><div style="font-size:10px;color:var(--text2)">Assign to team</div></div></div>
+        <div class="sb-sec-hd" style="margin-top:4px">Quick templates</div>
+        <div class="step-type" style="flex-direction:column;align-items:flex-start;gap:2px" onclick="loadSmsTpl('welcome')"><div style="font-size:12px;font-weight:600">Welcome sequence</div><div style="font-size:10px;color:var(--text2)">7-day lead nurture</div></div>
+        <div class="step-type" style="flex-direction:column;align-items:flex-start;gap:2px" onclick="loadSmsTpl('appointment')"><div style="font-size:12px;font-weight:600">Appointment reminders</div><div style="font-size:10px;color:var(--text2)">Before & after booking</div></div>
+        <div class="step-type" style="flex-direction:column;align-items:flex-start;gap:2px" onclick="loadSmsTpl('reengagement')"><div style="font-size:12px;font-weight:600">Re-engagement</div><div style="font-size:10px;color:var(--text2)">Win back cold leads</div></div>
+      </div>
+      <div style="flex:1;background:#f8fafc;overflow-y:auto;padding:20px" id="sms-canvas"></div>
+      <div style="width:222px;min-width:222px;background:#fff;border-left:1px solid var(--border);overflow-y:auto">
+        <div id="sms-ph" style="padding:16px;text-align:center;color:var(--text2)"><div style="font-size:24px;margin-bottom:6px">💬</div><div style="font-size:12px">Click a step to edit it</div></div>
+        <div id="sms-props" style="display:none">
+          <div class="prop-sec"><div class="prop-sec-hd" id="sms-prop-title">Step settings</div><div id="sms-prop-body"></div></div>
+          <div class="prop-sec" style="border-top:1px solid var(--border)"><div class="prop-sec-hd">Phone preview</div><div class="phone-mock" id="phone-prev"><div class="phone-bubble">Message preview</div><div class="phone-time">Delivered</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKFLOW EDITOR TOOL -->
+  <div class="pg" id="pg-workflow">
+    <div class="tool-bar" style="margin:-16px -16px 0">
+      <input class="form-in" id="wf-name" value="New lead welcome automation" style="width:240px;font-weight:600">
+      <div style="font-size:11px;color:var(--text2)" id="node-cnt">0 nodes</div>
+      <div style="margin-left:auto;display:flex;gap:7px;align-items:center">
+        <span style="font-size:11px;color:var(--text2)">Published</span><div class="tog off" id="pub-tog" onclick="togglePub()"></div>
+        <button class="btn-s" onclick="clrAuto()">Clear</button>
+        <button class="btn-p" onclick="toast('Workflow saved — '+autoNodes.length+' nodes!')">Save workflow</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);background:#fff;flex-wrap:wrap;margin:0 -16px">
+      <button class="btn-s load-btn" onclick="loadAutoTpl('welcome')">Welcome flow</button>
+      <button class="btn-s load-btn" onclick="loadAutoTpl('nurture')">Lead nurture</button>
+      <button class="btn-s load-btn" onclick="loadAutoTpl('booking')">Booking flow</button>
+      <button class="btn-s load-btn" onclick="loadAutoTpl('postpurchase')">Post-purchase</button>
+      <div style="margin-left:auto;font-size:10px;color:var(--text3)">Drag nodes · Click to select · Click output port then another node to connect</div>
+    </div>
+    <div style="display:flex;height:calc(100vh - 156px);margin:0 -16px;overflow:hidden">
+      <div style="width:208px;min-width:208px;background:#fff;border-right:1px solid var(--border);overflow-y:auto">
+        <div class="sb-sec-hd">Triggers</div>
+        <div class="auto-ntype" onclick="addNode('trigger','contact_form')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(14,165,233,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">⚡</div><div style="font-size:11px;font-weight:600">Contact form submit</div></div>
+        <div class="auto-ntype" onclick="addNode('trigger','tag_added')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(14,165,233,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🏷</div><div style="font-size:11px;font-weight:600">Tag applied</div></div>
+        <div class="auto-ntype" onclick="addNode('trigger','payment')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(14,165,233,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">₱</div><div style="font-size:11px;font-weight:600">Payment received</div></div>
+        <div class="auto-ntype" onclick="addNode('trigger','appt')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(14,165,233,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">📅</div><div style="font-size:11px;font-weight:600">Appointment booked</div></div>
+        <div class="auto-ntype" onclick="addNode('trigger','no_activity')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(14,165,233,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">💤</div><div style="font-size:11px;font-weight:600">No activity (30d)</div></div>
+        <div class="sb-sec-hd">Actions</div>
+        <div class="auto-ntype" onclick="addNode('action','send_sms')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">💬</div><div style="font-size:11px;font-weight:600">Send SMS</div></div>
+        <div class="auto-ntype" onclick="addNode('action','send_email')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">✉</div><div style="font-size:11px;font-weight:600">Send email</div></div>
+        <div class="auto-ntype" onclick="addNode('action','add_tag')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">+</div><div style="font-size:11px;font-weight:600">Add tag</div></div>
+        <div class="auto-ntype" onclick="addNode('action','move_pipeline')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">→</div><div style="font-size:11px;font-weight:600">Move pipeline</div></div>
+        <div class="auto-ntype" onclick="addNode('action','create_task')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">✓</div><div style="font-size:11px;font-weight:600">Create task</div></div>
+        <div class="auto-ntype" onclick="addNode('action','notify_team')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(22,163,74,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🔔</div><div style="font-size:11px;font-weight:600">Notify team</div></div>
+        <div class="sb-sec-hd">Logic</div>
+        <div class="auto-ntype" onclick="addNode('logic','wait')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">⏱</div><div style="font-size:11px;font-weight:600">Wait / Delay</div></div>
+        <div class="auto-ntype" onclick="addNode('logic','condition')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">◈</div><div style="font-size:11px;font-weight:600">If / Else condition</div></div>
+        <div class="auto-ntype" onclick="addNode('logic','goal')"><div style="width:26px;height:26px;border-radius:6px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">◎</div><div style="font-size:11px;font-weight:600">Goal / Exit</div></div>
+      </div>
+      <div style="flex:1;background:#f1f5f9;overflow:auto;position:relative" id="auto-canvas">
+        <svg class="canvas-svg" id="auto-svg"></svg>
+        <div id="auto-nodes" style="position:absolute;top:0;left:0;right:0"></div>
+      </div>
+      <div style="width:230px;min-width:230px;background:#fff;border-left:1px solid var(--border);overflow-y:auto">
+        <div id="auto-ph" style="padding:16px;text-align:center;color:var(--text2)"><div style="font-size:24px;margin-bottom:6px">⚡</div><div style="font-size:12px">Click a node to configure it</div></div>
+        <div id="auto-props" style="display:none">
+          <div class="prop-sec"><div class="prop-sec-hd" id="auto-prop-title">Node settings</div><div id="auto-prop-body"></div>
+            <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+              <button class="btn-p" style="width:100%;font-size:11px" onclick="dupeNode()">Duplicate node</button>
+              <button class="btn-s" style="width:100%;font-size:11px;color:#dc2626;border-color:#dc2626" onclick="delNode()">Delete node</button>
+            </div>
+          </div>
+          <div class="prop-sec" style="border-top:1px solid var(--border)">
+            <div class="prop-sec-hd">Enrollment stats</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <div style="background:#f8fafc;border-radius:7px;padding:8px;text-align:center"><div style="font-size:16px;font-weight:600" id="auto-enr">—</div><div style="font-size:10px;color:var(--text2)">Enrolled</div></div>
+              <div style="background:#f8fafc;border-radius:7px;padding:8px;text-align:center"><div style="font-size:16px;font-weight:600;color:var(--accent3)" id="auto-com">—</div><div style="font-size:10px;color:var(--text2)">Completed</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- end content -->
+</div><!-- end main -->
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal"><div class="modal-hd"><div class="modal-ti" id="modal-title">Modal</div><span class="modal-cl" onclick="closeModal()">×</span></div><div id="modal-body"></div></div>
+</div>
+
+<!-- NOTIF PANEL -->
+<div class="notif-panel" id="notif-panel">
+  <div style="font-size:12px;font-weight:700;margin-bottom:10px">Notifications</div>
+  <div class="notif-item s">Maria Santos submitted contact form — 2 min ago</div>
+  <div class="notif-item s">Deal ₱45,000 moved to Closed Won — 18 min ago</div>
+  <div class="notif-item w">Peter Lim invoice overdue — 2 days</div>
+</div>
+
+</div><!-- end app -->
+<script>
+// ===== GLOBALS =====
+var curPage='dashboard';
+var aiOn=false;
+var splitA=50;
+var selStep=null;
+var selBlkId=null;
+var selSmsId=null;
+var selNodeId=null;
+var connectFrom=null;
+var dragNode=null;var dragOX=0;var dragOY=0;
+var curTagFlt='all';var curSrcFlt='all';
+var selDay=12;
+
+// ===== DATA =====
+var contacts=[
+  {id:1,first:'Maria',last:'Santos',email:'maria@example.ph',phone:'+63 917 123 4567',tag:'lead',source:'Website',stage:'New lead',active:'2m ago',color:'#7c3aed'},
+  {id:2,first:'Juan',last:'Dela Cruz',email:'juan.dc@gmail.com',phone:'+63 918 234 5678',tag:'customer',source:'Referral',stage:'Closed won',active:'1h ago',color:'#0ea5e9'},
+  {id:3,first:'Peter',last:'Lim',email:'peter.lim@biz.com',phone:'+63 919 345 6789',tag:'prospect',source:'Facebook',stage:'Negotiation',active:'3h ago',color:'#f59e0b'},
+  {id:4,first:'Ana',last:'Cruz',email:'ana.cruz@email.ph',phone:'+63 920 456 7890',tag:'lead',source:'Instagram',stage:'Contacted',active:'Yesterday',color:'#16a34a'},
+  {id:5,first:'Roberto',last:'Go',email:'rgo@company.ph',phone:'+63 921 567 8901',tag:'customer',source:'Google Ads',stage:'Proposal sent',active:'2d ago',color:'#7c3aed'},
+  {id:6,first:'Liza',last:'Reyes',email:'liza.r@ph.com',phone:'+63 922 678 9012',tag:'cold',source:'Email import',stage:'New lead',active:'1w ago',color:'#ef4444'},
+  {id:7,first:'Carlo',last:'Bautista',email:'carlo@startup.ph',phone:'+63 923 789 0123',tag:'lead',source:'Facebook',stage:'New lead',active:'3d ago',color:'#0ea5e9'},
+  {id:8,first:'Diana',last:'Flores',email:'diana.f@ph.net',phone:'+63 924 890 1234',tag:'prospect',source:'Referral',stage:'Contacted',active:'4d ago',color:'#f97316'}
+];
+var deals=[
+  {id:1,name:'ABC Corp — Website pkg',value:35000,stage:'New lead',date:'Apr 10',contact:'Maria Santos'},
+  {id:2,name:'XYZ Startup — Funnel setup',value:18500,stage:'New lead',date:'Apr 11',contact:'Carlo Bautista'},
+  {id:3,name:'Peter Lim — BPO tools',value:55000,stage:'Contacted',date:'Apr 8',contact:'Peter Lim'},
+  {id:4,name:'E-Commerce retainer',value:28000,stage:'Contacted',date:'Apr 9',contact:'Ana Cruz'},
+  {id:5,name:'Real Estate CRM',value:75000,stage:'Proposal sent',date:'Apr 5',contact:'Roberto Go'},
+  {id:6,name:'Clinic automation',value:42000,stage:'Proposal sent',date:'Apr 7',contact:'Diana Flores'},
+  {id:7,name:'Roberto Go — Full suite',value:120000,stage:'Negotiation',date:'Apr 2',contact:'Roberto Go'},
+  {id:8,name:'BPO Package — Juan DC',value:45000,stage:'Closed won',date:'Apr 10',contact:'Juan Dela Cruz'},
+  {id:9,name:'Budget mismatch',value:8000,stage:'Closed lost',date:'Apr 6',contact:'Liza Reyes'}
+];
+var tasks=[
+  {text:'Follow up with Peter Lim',due:'Today',done:false},
+  {text:'Send proposal to ABC Corp',due:'Apr 13',done:false},
+  {text:'Update lead tags',due:'Done',done:true},
+  {text:'Review automation workflow',due:'Overdue',done:false}
+];
+var wflows=[
+  {icon:'⚡',bg:'rgba(14,165,233,0.12)',name:'New lead welcome sequence',desc:'Trigger: Contact form submit · 5 actions · 128 enrolled',on:true},
+  {icon:'📅',bg:'rgba(124,58,237,0.12)',name:'Appointment reminder SMS',desc:'Trigger: Booking confirmed · 2 actions · 47 enrolled',on:true},
+  {icon:'🔁',bg:'rgba(239,68,68,0.12)',name:'30-day re-engagement',desc:'Trigger: No activity 30 days · 8 actions · 22 enrolled',on:false},
+  {icon:'💰',bg:'rgba(16,163,74,0.12)',name:'Post-purchase upsell flow',desc:'Trigger: Payment received · 4 actions · 18 enrolled',on:true},
+  {icon:'📧',bg:'rgba(245,158,11,0.12)',name:'Lead nurture email series',desc:'Trigger: Tag applied "lead" · 6 actions · 64 enrolled',on:false}
+];
+var convData={
+  MS:{name:'Maria Santos',ch:'SMS · +63 917 123 4567',msgs:[{t:'in',m:"Hi! I'm interested in your funnel services. How much?"},{t:'out',m:"Hi Maria! Our packages start at ₱12,000. Free discovery call?"},{t:'in',m:"Yes please! I'm free this week :)"}]},
+  JD:{name:'Juan Dela Cruz',ch:'Email · juan.dc@gmail.com',msgs:[{t:'in',m:"Can we confirm the booking for April 14?"},{t:'out',m:"Yes! Confirmed for April 14 at 10 AM. See you then!"}]},
+  PL:{name:'Peter Lim',ch:'SMS · +63 919 345 6789',msgs:[{t:'in',m:"Can we reschedule to Thursday?"},{t:'out',m:"Of course! Sending you a new calendar link now."}]},
+  AC:{name:'Ana Cruz',ch:'FB Messenger',msgs:[{t:'in',m:"Received the proposal, reviewing now."},{t:'in',m:"Does this include the CRM setup?"}]}
+};
+var activeConv='MS';
+var calEvents={12:[{n:'Maria Santos — Discovery Call',t:'10:00 AM · 30 min',c:'blue'},{n:'Team standup',t:'9:00 AM · 15 min',c:'purple'}],14:[{n:'Juan Dela Cruz — Strategy session',t:'10:00 AM · 1 hr',c:'purple'}],15:[{n:'Ana Cruz — Product demo',t:'2:00 PM · 1 hr',c:'blue'}],17:[{n:'Roberto Go — Negotiation call',t:'11:00 AM · 1 hr',c:'amber'}]};
+var stages=['New lead','Contacted','Proposal sent','Negotiation','Closed won','Closed lost'];
+var stageCols=['#0ea5e9','#7c3aed','#f59e0b','#f97316','#16a34a','#ef4444'];
+var stageBgs=['rgba(14,165,233,0.08)','rgba(124,58,237,0.08)','rgba(245,158,11,0.08)','rgba(249,115,22,0.08)','rgba(22,163,74,0.08)','rgba(239,68,68,0.08)'];
+var funnelData=[{name:'Lead gen funnel #1',steps:3,visitors:128,conv:'14%',c1:'#0ea5e9',c2:'#7c3aed'},{name:'Product launch funnel',steps:5,visitors:342,conv:'9%',c1:'#f59e0b',c2:'#ef4444'},{name:'Webinar registration',steps:3,visitors:89,conv:'22%',c1:'#16a34a',c2:'#0ea5e9'}];
+var abHist=[{name:'Welcome email test',winner:'B',lift:'+18%',conf:'97%',date:'Apr 8'},{name:'CTA button color',winner:'A',lift:'+7%',conf:'91%',date:'Apr 2'},{name:'Subject line — promo',winner:'B',lift:'+23%',conf:'99%',date:'Mar 28'}];
+var abData={a:{sent:0,opens:0,clicks:0,convs:0},b:{sent:0,opens:0,clicks:0,convs:0}};
+var fSteps=[];
+var sDefs={optin:{label:'Opt-in page',icon:'◉',bg:'rgba(14,165,233,0.12)',visitors:342,conv:'28%'},sales:{label:'Sales page',icon:'₱',bg:'rgba(124,58,237,0.12)',visitors:280,conv:'14%'},order:{label:'Order form',icon:'◻',bg:'rgba(22,163,74,0.12)',visitors:220,conv:'61%'},upsell:{label:'Upsell page',icon:'↑',bg:'rgba(245,158,11,0.12)',visitors:134,conv:'22%'},thankyou:{label:'Thank you page',icon:'✓',bg:'rgba(22,163,74,0.12)',visitors:195,conv:'100%'},webinar:{label:'Webinar page',icon:'▶',bg:'rgba(99,153,34,0.12)',visitors:410,conv:'31%'},survey:{label:'Survey/Quiz',icon:'?',bg:'rgba(14,165,233,0.1)',visitors:290,conv:'44%'},appointment:{label:'Appointment',icon:'📅',bg:'rgba(124,58,237,0.12)',visitors:160,conv:'38%'}};
+var emailBlocks=[];
+var smsSteps=[];
+var autoNodes=[];var autoEdges=[];
+var smsDefs={sms:{label:'Send SMS',icon:'💬',bg:'rgba(14,165,233,0.12)'},delay:{label:'Wait / Delay',icon:'⏱',bg:'rgba(245,158,11,0.12)'},condition:{label:'Condition',icon:'◈',bg:'rgba(124,58,237,0.12)'},tag:{label:'Add / Remove tag',icon:'🏷',bg:'rgba(22,163,74,0.12)'},email:{label:'Send email',icon:'✉',bg:'rgba(239,68,68,0.12)'},task:{label:'Create task',icon:'✓',bg:'rgba(107,114,128,0.12)'}};
+var nDefs={trigger:{contact_form:{title:'Contact form submit',sub:'Trigger',icon:'⚡',col:'#0ea5e9',bg:'rgba(14,165,233,0.12)'},tag_added:{title:'Tag applied',sub:'Trigger',icon:'🏷',col:'#0ea5e9',bg:'rgba(14,165,233,0.12)'},payment:{title:'Payment received',sub:'Trigger',icon:'₱',col:'#0ea5e9',bg:'rgba(14,165,233,0.12)'},appt:{title:'Appointment booked',sub:'Trigger',icon:'📅',col:'#0ea5e9',bg:'rgba(14,165,233,0.12)'},no_activity:{title:'No activity (30d)',sub:'Trigger',icon:'💤',col:'#0ea5e9',bg:'rgba(14,165,233,0.12)'}},action:{send_sms:{title:'Send SMS',sub:'Action',icon:'💬',col:'#16a34a',bg:'rgba(22,163,74,0.12)'},send_email:{title:'Send email',sub:'Action',icon:'✉',col:'#16a34a',bg:'rgba(22,163,74,0.12)'},add_tag:{title:'Add tag',sub:'Action',icon:'+',col:'#16a34a',bg:'rgba(22,163,74,0.12)'},move_pipeline:{title:'Move pipeline',sub:'Action',icon:'→',col:'#16a34a',bg:'rgba(22,163,74,0.12)'},create_task:{title:'Create task',sub:'Action',icon:'✓',col:'#16a34a',bg:'rgba(22,163,74,0.12)'},notify_team:{title:'Notify team',sub:'Action',icon:'🔔',col:'#16a34a',bg:'rgba(22,163,74,0.12)'}},logic:{wait:{title:'Wait / Delay',sub:'Logic',icon:'⏱',col:'#f59e0b',bg:'rgba(245,158,11,0.12)'},condition:{title:'If / Else',sub:'Logic',icon:'◈',col:'#f59e0b',bg:'rgba(245,158,11,0.12)'},goal:{title:'Goal / Exit',sub:'Logic',icon:'◎',col:'#f59e0b',bg:'rgba(245,158,11,0.12)'}}};
+var pgNames={dashboard:'Dashboard',contacts:'Contacts',conversations:'Conversations',pipeline:'Opportunities',calendars:'Calendars',funnels:'Funnels & websites',emailmkt:'Email marketing',automation:'Automation',sms:'SMS campaigns',sites:'Sites',payments:'Payments',reporting:'Reporting',snapshots:'Snapshots',settings:'Settings',builder:'Funnel builder',emaildesigner:'Email designer',abtest:'A/B split test',smsseq:'SMS sequence builder',workflow:'Workflow editor'};
+var bizProfile={name:'Zata Digital Solutions',owner:'Bhel',email:'bhel@zatadigitalsolutions.com',phone:'+63 917 000 0000',sms:'+63 917 000 1234',address:'Cebu City, Philippines',tz:'Asia/Manila (GMT+8)'};
+var teamMembers=[{name:'Bhel',email:'bhel@zatadigitalsolutions.com',role:'Admin',isOwner:true},{name:'Maria Santos',email:'maria@zatadigitalsolutions.com',role:'User',isOwner:false}];
+var phoneNumbers=[{number:'+63 917 000 1234',type:'Local PH',sms:'Enabled',voice:'Enabled',isPrimary:true}];
+
+// ===== UTILITIES =====
+function toast(msg,err){
+  var old=document.querySelector('.toast-el');if(old)old.remove();
+  var t=document.createElement('div');t.className='toast-el';
+  t.style.cssText='position:fixed;bottom:18px;right:18px;background:'+(err?'#dc2626':'#16a34a')+';color:#fff;padding:10px 16px;border-radius:8px;font-size:12px;z-index:999;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.15)';
+  t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
+}
+function toggleNotifs(){var p=document.getElementById('notif-panel');p.style.display=p.style.display==='block'?'none':'block';}
+document.addEventListener('click',function(e){if(!e.target.closest('#notif-panel')&&!e.target.closest('[onclick="toggleNotifs()"]'))document.getElementById('notif-panel').style.display='none';});
+
+// ===== NAV =====
+function nav(pg,el){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  var p=document.getElementById('pg-'+pg);if(p)p.classList.add('on');
+  document.getElementById('pg-title').textContent=pgNames[pg]||pg;
+  var tb=document.getElementById('topbar-btn');
+  var bmap={contacts:'+ Add Contact',pipeline:'+ Add Opportunity',calendars:'+ New Booking',payments:'+ New Invoice',funnels:'+ Open Funnel Builder',emailmkt:'+ Create Campaign',automation:'+ Open Workflow Editor',sms:'+ New Campaign',builder:'+ Load Template',emaildesigner:'+ Load Template',abtest:'+ Simulate Traffic',smsseq:'+ Load Template',workflow:'+ Load Template'};
+  tb.textContent=bmap[pg]||'+ Add Contact';
+  if(el)el.classList.add('on');
+  else document.querySelectorAll('.ni').forEach(n=>{if((n.getAttribute('onclick')||'').includes("'"+pg+"'"))n.classList.add('on');});
+  if(pg==='contacts')renderContacts();
+  if(pg==='pipeline')renderPipeline();
+  if(pg==='calendars')renderCalendar();
+  if(pg==='conversations')renderConvList();
+  if(pg==='automation')renderWflows();
+  if(pg==='funnels')renderFunnelsPage();
+  if(pg==='sites')renderSites();
+  if(pg==='snapshots')renderSnaps();
+  if(pg==='settings')renderSettings();
+  if(pg==='smsseq')renderSmsSeq();
+  if(pg==='workflow'){renderAutoCanvas();updNodeCnt();}
+  if(pg==='abtest')renderAbHist();
+  curPage=pg;
+}
+function topbarAct(){var acts={contacts:()=>openModal('contact'),pipeline:()=>openModal('deal'),calendars:()=>openModal('booking'),payments:()=>openModal('invoice'),builder:()=>loadFTpl('tripwire'),emaildesigner:()=>loadETpl('welcome'),abtest:simAB,smsseq:()=>loadSmsTpl('welcome'),workflow:()=>loadAutoTpl('welcome')};var fn=acts[curPage];if(fn)fn();else openModal('contact');}
+function gSearch(v){if(v.length>1){nav('contacts',null);setTimeout(()=>renderContacts(),50);}}
+function repTab(el){document.querySelectorAll('.rt').forEach(r=>r.classList.remove('on'));el.classList.add('on');}
+
+// ===== DASHBOARD =====
+function renderDash(){
+  document.getElementById('act-feed').innerHTML=[{col:'#0ea5e9',text:'Maria Santos submitted a contact form via <b>Funnel #1</b>',t:'2 min ago'},{col:'#16a34a',text:'Deal <b>₱45,000 BPO Package</b> moved to Closed Won',t:'18 min ago'},{col:'#f59e0b',text:'Automation <b>Welcome Series</b> sent to 34 contacts',t:'1 hr ago'},{col:'#7c3aed',text:'Juan Dela Cruz booked a call for <b>April 14</b>',t:'2 hrs ago'},{col:'#ef4444',text:'SMS campaign <b>Promo Blast</b> — 89% delivery',t:'3 hrs ago'}].map(a=>`<div class="ai-item"><div class="ad" style="background:${a.col}"></div><div><div class="at">${a.text}</div><div class="atm">${a.t}</div></div></div>`).join('');
+  renderTasks();
+}
+function renderTasks(){
+  var tl=document.getElementById('task-list');if(!tl)return;
+  var html='';
+  tasks.forEach(function(t,i){
+    var dc=t.due==='Overdue'?'#dc2626':t.due==='Today'?'#d97706':'var(--text3)';
+    var sp=t.done?'text-decoration:line-through;color:var(--text3)':'';
+    html+='<div style="display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--border)">';
+    html+='<input type="checkbox" '+(t.done?'checked ':'')+'data-ti="'+i+'" onchange="toggleTask(this)" style="width:13px;height:13px;cursor:pointer">';
+    html+='<span style="font-size:11px;flex:1;'+sp+'">'+t.text+'</span>';
+    html+='<span style="font-size:10px;color:'+dc+'">'+t.due+'</span>';
+    html+='</div>';
+  });
+  html+='<div style="margin-top:8px"><button class="btn-s" style="font-size:11px;width:100%" onclick="openModal(&quot;task&quot;)">+ Add task</button></div>';
+  tl.innerHTML=html;
+}
+function toggleTask(cb){var i=parseInt(cb.getAttribute('data-ti'));tasks[i].done=!tasks[i].done;renderTasks();}
+
+// ===== CONTACTS =====
+function renderContacts(){
+  var fl=contacts.filter(c=>(curTagFlt==='all'||c.tag===curTagFlt)&&(curSrcFlt==='all'||c.source===curSrcFlt));
+  document.getElementById('c-count').textContent='('+fl.length+' of '+contacts.length+')';
+  document.getElementById('c-body').innerHTML=fl.map(c=>`<tr><td><div style="display:flex;align-items:center;gap:6px"><div class="ava" style="background:${c.color};width:24px;height:24px;font-size:9px">${c.first[0]}${c.last[0]}</div>${c.first} ${c.last}</div></td><td>${c.email}</td><td>${c.phone}</td><td><span class="tag t-${c.tag}">${c.tag}</span></td><td>${c.source}</td><td>${c.stage}</td><td>${c.active}</td><td><button class="btn-s" style="font-size:10px;padding:2px 7px" onclick="viewC(${c.id})">View</button></td></tr>`).join('');
+}
+function fltC(f,el){curTagFlt=f;document.querySelectorAll('#pg-contacts .stab').forEach(s=>s.classList.remove('on'));if(el)el.classList.add('on');renderContacts();}
+function fltSrc(el,src){curSrcFlt=src;document.querySelectorAll('#pg-contacts .fb').forEach(f=>f.classList.remove('on'));el.classList.add('on');renderContacts();}
+function viewC(id){
+  var c=contacts.find(x=>x.id===id);if(!c)return;
+  openModal('viewc');document.getElementById('modal-title').textContent=c.first+' '+c.last;
+  document.getElementById('modal-body').innerHTML=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><div class="av" style="background:${c.color};width:48px;height:48px;font-size:16px">${c.first[0]}${c.last[0]}</div><div><div style="font-size:15px;font-weight:700">${c.first} ${c.last}</div><span class="tag t-${c.tag}">${c.tag}</span></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px"><div><div class="form-lb">Email</div><div style="font-size:12px">${c.email}</div></div><div><div class="form-lb">Phone</div><div style="font-size:12px">${c.phone}</div></div><div><div class="form-lb">Source</div><div style="font-size:12px">${c.source}</div></div><div><div class="form-lb">Stage</div><div style="font-size:12px">${c.stage}</div></div></div><div style="display:flex;gap:7px"><button class="btn-p" style="font-size:11px" onclick="closeModal();nav('conversations',null)">Message</button><button class="btn-s" style="font-size:11px" onclick="openModal('task')">Add task</button><button class="btn-s" style="font-size:11px" onclick="openModal('note')">Add note</button></div>`;
+}
+function expContacts(){toast('CSV export triggered — '+contacts.length+' contacts');}
+
+// ===== CONVERSATIONS =====
+function renderConvList(){
+  var li=document.getElementById('conv-list-items');if(!li)return;
+  li.innerHTML=Object.keys(convData).map(k=>{var c=convData[k];var last=c.msgs[c.msgs.length-1].m;return`<div class="ci ${k===activeConv?'on':''}" onclick="selConv('${k}')"><div class="av" style="width:32px;height:32px;font-size:11px">${k}</div><div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:600">${c.name}</div><div style="font-size:10px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px">${last}</div></div><div style="font-size:10px;color:var(--text3)">now</div></div>`;}).join('');
+  renderChat();
+}
+function selConv(k){activeConv=k;renderConvList();}
+function renderChat(){
+  var c=convData[activeConv];if(!c)return;
+  document.getElementById('chat-name').textContent=c.name;
+  document.getElementById('chat-ch').textContent=c.ch;
+  document.getElementById('chat-av').textContent=activeConv;
+  var m=document.getElementById('chat-msgs');
+  m.innerHTML=c.msgs.map(x=>`<div class="${x.t==='in'?'msg-in':'msg-out'}">${x.m}</div>`).join('');
+  m.scrollTop=m.scrollHeight;
+}
+function sendMsg(){
+  var inp=document.getElementById('chat-in');var txt=inp.value.trim();if(!txt)return;
+  convData[activeConv].msgs.push({t:'out',m:txt});inp.value='';renderChat();
+  if(aiOn){setTimeout(()=>{var r=["Got it! I'll look into that.","Thanks! Our team will follow up shortly.","Would you like to schedule a call?","Sending you more details now!"];convData[activeConv].msgs.push({t:'in',m:r[Math.floor(Math.random()*r.length)]});renderChat();},1200);}
+}
+function toggleAI(){aiOn=!aiOn;var t=document.getElementById('ai-tog');t.classList.toggle('on',aiOn);t.textContent=aiOn?'✦ AI Reply ON':'✦ AI Reply';}
+
+// ===== PIPELINE =====
+var dragIdx=null;
+function renderPipeline(){
+  var tot=deals.filter(d=>d.stage!=='Closed lost').reduce((a,d)=>a+d.value,0);
+  document.getElementById('pip-tot').textContent='— Total: ₱'+tot.toLocaleString();
+  var board=document.getElementById('pip-board');board.innerHTML='';
+  stages.forEach((s,si)=>{
+    var col=document.createElement('div');col.className='pip-col';
+    col.innerHTML=`<div class="pip-hd" style="background:${stageBgs[si]};color:${stageCols[si]}">${s}<span style="background:${stageBgs[si]};padding:1px 6px;border-radius:8px;font-size:10px">${deals.filter(d=>d.stage===s).length}</span></div>`;
+    deals.filter(d=>d.stage===s).forEach(d=>{
+      var dc=document.createElement('div');dc.className='dcard';dc.draggable=true;
+      dc.innerHTML=`<div class="dn">${d.name}</div><div class="dv">₱${d.value.toLocaleString()}</div><div class="dd">${d.contact} · ${d.date}</div>`;
+      dc.addEventListener('dragstart',e=>{e.dataTransfer.setData('did',d.id);dc.style.opacity='.4';});
+      dc.addEventListener('dragend',()=>dc.style.opacity='1');
+      col.appendChild(dc);
+    });
+    var add=document.createElement('div');add.style.cssText='margin-top:6px;padding:6px;border:1px dashed var(--border);border-radius:6px;text-align:center;font-size:11px;color:var(--text3);cursor:pointer';add.textContent='+ Add deal';add.onclick=()=>openModal('deal');col.appendChild(add);
+    col.addEventListener('dragover',e=>{e.preventDefault();col.style.background=stageBgs[si];});
+    col.addEventListener('dragleave',()=>col.style.background='');
+    col.addEventListener('drop',e=>{e.preventDefault();col.style.background='';var id=parseInt(e.dataTransfer.getData('did'));var deal=deals.find(d=>d.id===id);if(deal){deal.stage=s;renderPipeline();}});
+    board.appendChild(col);
+  });
+}
+
+// ===== CALENDAR =====
+function renderCalendar(){
+  var days=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  document.getElementById('cal-hd').innerHTML=days.map(d=>`<div style="font-size:10px;font-weight:600;color:var(--text2);padding:4px">${d}</div>`).join('');
+  var grid=document.getElementById('cal-grid');grid.innerHTML='';
+  for(var i=0;i<2;i++){var s=document.createElement('div');s.style.padding='5px';grid.appendChild(s);}
+  for(var d=1;d<=30;d++){
+    var div=document.createElement('div');
+    div.className='cal-day'+(d===12?' today':'')+(calEvents[d]?' has-ev':'')+(d===selDay&&d!==12?' sel':'');
+    div.textContent=d;var dd=d;div.onclick=()=>{selDay=dd;renderCalendar();};grid.appendChild(div);
+  }
+  renderCalEvs();
+  document.getElementById('cal-up').innerHTML=`<div class="ev-item purple"><div class="ev-n">Juan Dela Cruz — Strategy session</div><div class="ev-t">Apr 14, 10:00 AM · 1 hr</div></div><div class="ev-item"><div class="ev-n">Ana Cruz — Product demo</div><div class="ev-t">Apr 15, 2:00 PM · 1 hr</div></div><div class="ev-item amber"><div class="ev-n">Roberto Go — Negotiation call</div><div class="ev-t">Apr 17, 11:00 AM · 1 hr</div></div>`;
+}
+function renderCalEvs(){
+  var evs=calEvents[selDay]||[];document.getElementById('cal-sel-dt').textContent='April '+selDay+(selDay===12?' — Today':'');
+  document.getElementById('cal-evs').innerHTML=evs.length?evs.map(e=>`<div class="ev-item ${e.c}"><div class="ev-n">${e.n}</div><div class="ev-t">${e.t}</div></div>`).join(''):'<div style="font-size:11px;color:var(--text3);padding:8px 0">No events for this day</div>';
+}
+
+// ===== FUNNELS/SITES/SNAPS/WFLOWS/SETTINGS =====
+function renderFunnelsPage(){document.getElementById('funnel-grid').innerHTML=funnelData.map(f=>`<div class="card"><div style="height:70px;border-radius:7px;background:linear-gradient(135deg,${f.c1},${f.c2});margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:rgba(255,255,255,0.9)">${f.steps} steps</div><div style="font-size:12px;font-weight:600;margin-bottom:3px">${f.name}</div><div style="font-size:10px;color:var(--text2);margin-bottom:10px">${f.visitors} visitors · ${f.conv} conv.</div><div style="display:flex;gap:6px"><button class="btn-s" style="font-size:10px;padding:3px 8px" onclick="nav('builder',null)">Edit</button><button class="btn-s" style="font-size:10px;padding:3px 8px">Stats</button></div></div>`).join('')+`<div class="card" style="border:1px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:140px;cursor:pointer" onclick="nav('builder',null)"><div style="font-size:24px;color:var(--text3)">+</div><div style="font-size:12px;color:var(--text3);margin-top:6px">Open funnel builder</div></div>`;}
+function renderSites(){var si=[{name:'Agency main site',type:'Website',pages:5,c1:'#0ea5e9',c2:'#16a34a'},{name:'Client membership portal',type:'Membership',pages:8,c1:'#7c3aed',c2:'#ef4444'}];document.getElementById('sites-grid').innerHTML=si.map(s=>`<div class="card"><div style="height:70px;border-radius:7px;background:linear-gradient(135deg,${s.c1},${s.c2});margin-bottom:10px"></div><div style="font-size:12px;font-weight:600;margin-bottom:3px">${s.name}</div><div style="font-size:10px;color:var(--text2);margin-bottom:10px">${s.type} · ${s.pages} pages</div><div style="display:flex;gap:6px"><button class="btn-s" style="font-size:10px;padding:3px 8px">Edit</button><button class="btn-s" style="font-size:10px;padding:3px 8px">Preview</button></div></div>`).join('')+`<div class="card" style="border:1px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:140px;cursor:pointer"><div style="font-size:24px;color:var(--text3)">+</div><div style="font-size:12px;color:var(--text3);margin-top:6px">Create new site</div></div>`;}
+function renderSnaps(){var sn=[{icon:'⚡',bg:'rgba(14,165,233,0.1)',name:'Real Estate Agency',desc:'Funnels, automation, CRM · 24 assets'},{icon:'🏥',bg:'rgba(16,163,74,0.1)',name:'Medical Clinic',desc:'Booking, reminders, follow-up · 18 assets'},{icon:'📦',bg:'rgba(124,58,237,0.1)',name:'E-Commerce Store',desc:'Cart funnel, email, SMS · 31 assets'},{icon:'🎓',bg:'rgba(245,158,11,0.1)',name:'Online Course Creator',desc:'Membership, drip email · 22 assets'}];document.getElementById('snap-list').innerHTML=sn.map(s=>`<div class="snap-item"><div style="width:32px;height:32px;border-radius:7px;background:${s.bg};display:flex;align-items:center;justify-content:center;font-size:14px">${s.icon}</div><div style="flex:1"><div style="font-size:12px;font-weight:600">${s.name}</div><div style="font-size:10px;color:var(--text2)">${s.desc}</div></div><button class="btn-p" style="font-size:11px;padding:4px 10px" onclick="toast('Snapshot loaded!')">Load</button></div>`).join('');}
+function renderWflows(){document.getElementById('wf-list').innerHTML=wflows.map((w,i)=>`<div class="wf-item"><div style="width:36px;height:36px;border-radius:8px;background:${w.bg};display:flex;align-items:center;justify-content:center;font-size:16px">${w.icon}</div><div style="flex:1"><div style="font-size:12px;font-weight:600">${w.name}</div><div style="font-size:10px;color:var(--text2)">${w.desc}</div></div><div class="tog ${w.on?'on':'off'}" onclick="wflows[${i}].on=!wflows[${i}].on;renderWflows()"></div><button class="btn-s" style="font-size:10px;padding:2px 8px;margin-left:6px" onclick="nav('workflow',null)">Edit</button></div>`).join('');}
+function renderSettings(){
+  // Populate biz form from bizProfile object
+  var bp=bizProfile;
+  var set=function(id,v){var e=document.getElementById(id);if(e)e.value=v;};
+  set('biz-name',bp.name);set('biz-owner',bp.owner);set('biz-email',bp.email);
+  set('biz-phone',bp.phone);set('biz-sms',bp.sms);set('biz-address',bp.address);
+  // Notifications
+  var ni=[{l:'New contact notification',on:true},{l:'Deal stage change alerts',on:true},{l:'Unread message alerts',on:true},{l:'Invoice overdue alerts',on:false},{l:'Weekly report email',on:true}];
+  var ns=document.getElementById('notif-settings');
+  if(ns)ns.innerHTML=ni.map(function(n){var oc='this.classList.toggle(&quot;on&quot;);this.classList.toggle(&quot;off&quot;)';return '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span style="font-size:12px">'+n.l+'</span><div class="tog '+(n.on?'on':'off')+'" onclick="'+oc+'"></div></div>';}).join('');
+  // Integrations
+  var il=document.getElementById('integrations-list');
+  if(il){var ints=[{name:'Facebook Lead Ads',status:'connected',color:'#16a34a'},{name:'Google Analytics',status:'connected',color:'#16a34a'},{name:'PayMongo',status:'not connected',color:'#d97706'},{name:'Twilio SMS',status:'disconnected',color:'#dc2626'},{name:'Stripe',status:'not connected',color:'#d97706'},{name:'Zapier',status:'connected',color:'#16a34a'}];il.innerHTML=ints.map(function(i){return '<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)"><span style="font-size:12px;font-weight:600">'+i.name+'</span><div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:'+i.color+';font-weight:600">'+i.status+'</span><button class="btn-s" style="font-size:10px;padding:2px 8px">'+(i.status==='connected'?'Manage':'Connect')+'</button></div></div>';}).join('');}
+  renderTeamTable();
+  renderPhoneTable();
+}
+function liveUpdBiz(){
+  // Read form values into bizProfile live as user types
+  var g=function(id){var e=document.getElementById(id);return e?e.value:'';};
+  bizProfile.name=g('biz-name');bizProfile.owner=g('biz-owner');bizProfile.email=g('biz-email');
+  bizProfile.phone=g('biz-phone');bizProfile.sms=g('biz-sms');bizProfile.address=g('biz-address');
+}
+function saveBiz(){
+  liveUpdBiz();
+  renderTeamTable();
+  renderPhoneTable();
+  var saved=document.getElementById('biz-saved');
+  if(saved){saved.style.display='inline';setTimeout(function(){saved.style.display='none';},3000);}
+  toast('Settings saved — Team & Phone numbers updated!');
+}
+function renderTeamTable(){
+  var tt=document.getElementById('team-table');if(!tt)return;
+  var bp=bizProfile;
+  var rows=teamMembers.map(function(m){
+    var email=m.isOwner?bp.email:m.email;
+    var name=m.isOwner?bp.owner:m.name;
+    return '<tr><td>'+name+'</td><td>'+email+'</td><td>'+m.role+'</td><td><span class="tag t-cust">Active</span></td></tr>';
+  }).join('');
+  tt.innerHTML='<table class="tbl"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th style="width:70px">Status</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function renderPhoneTable(){
+  var pt=document.getElementById('phone-table');if(!pt)return;
+  var bp=bizProfile;
+  var rows=phoneNumbers.map(function(p){
+    var num=p.isPrimary?bp.sms:p.number;
+    return '<tr><td>'+num+'</td><td>'+p.type+'</td><td><span class="tag t-cust">'+p.sms+'</span></td><td><span class="tag t-cust">'+p.voice+'</span></td></tr>';
+  }).join('');
+  pt.innerHTML='<table class="tbl"><thead><tr><th>Number</th><th>Type</th><th>SMS</th><th>Voice</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+
+function setTab(el,tab){document.querySelectorAll('#pg-settings .stab').forEach(s=>s.classList.remove('on'));el.classList.add('on');['biz','integrations','team','phone'].forEach(t=>{var e=document.getElementById('settings-'+t);if(e)e.style.display=t===tab?'':'none';});document.getElementById('settings-biz').style.display=tab==='biz'?'':'none';}
+
+// ===== MODAL =====
+function openModal(type){
+  var titles={contact:'Add new contact',viewc:'Contact details',deal:'Add opportunity',booking:'New booking',task:'Add task',note:'Add note',invoice:'New invoice',team:'Invite team member'};
+  document.getElementById('modal-title').textContent=titles[type]||type;
+  document.getElementById('modal-body').innerHTML=getModalBody(type);
+  document.getElementById('modal-bg').classList.add('show');
+}
+function getModalBody(t){
+  var b=`<div style="display:flex;gap:8px;margin-top:4px">`;
+  if(t==='contact')return`<div class="form-gr"><label class="form-lb">First name *</label><input class="form-in" id="fn" placeholder="Maria"></div><div class="form-gr"><label class="form-lb">Last name *</label><input class="form-in" id="ln" placeholder="Santos"></div><div class="form-gr"><label class="form-lb">Email</label><input class="form-in" id="em" type="email" placeholder="maria@example.ph"></div><div class="form-gr"><label class="form-lb">Phone</label><input class="form-in" id="ph" placeholder="+63 917 000 0000"></div><div class="form-gr"><label class="form-lb">Tag</label><select class="form-in" id="tg"><option value="lead">Lead</option><option value="prospect">Prospect</option><option value="customer">Customer</option><option value="cold">Cold</option></select></div><div class="form-gr"><label class="form-lb">Source</label><select class="form-in" id="src"><option>Website</option><option>Facebook</option><option>Google Ads</option><option>Referral</option><option>Instagram</option></select></div>${b}<button class="btn-p" onclick="saveContact()">Save contact</button><button class="btn-s" onclick="closeModal()">Cancel</button></div>`;
+  if(t==='deal')return`<div class="form-gr"><label class="form-lb">Deal name *</label><input class="form-in" id="dn" placeholder="ABC Corp — Website Package"></div><div class="form-gr"><label class="form-lb">Value (₱)</label><input class="form-in" id="dv" type="number" placeholder="35000"></div><div class="form-gr"><label class="form-lb">Contact</label><select class="form-in" id="dc">${contacts.map(c=>`<option>${c.first} ${c.last}</option>`).join('')}</select></div><div class="form-gr"><label class="form-lb">Stage</label><select class="form-in" id="ds">${stages.map(s=>`<option>${s}</option>`).join('')}</select></div>${b}<button class="btn-p" onclick="saveDeal()">Save deal</button><button class="btn-s" onclick="closeModal()">Cancel</button></div>`;
+  if(t==='task')return`<div class="form-gr"><label class="form-lb">Task</label><input class="form-in" id="txt" placeholder="Follow up with…"></div><div class="form-gr"><label class="form-lb">Due</label><input class="form-in" id="due" placeholder="Today, Apr 15, etc."></div>${b}<button class="btn-p" onclick="var tx=document.getElementById('txt').value.trim();if(!tx)return;tasks.unshift({text:tx,due:document.getElementById('due').value||'No due date',done:false});closeModal();toast('Task added!');renderTasks()">Add task</button><button class="btn-s" onclick="closeModal()">Cancel</button></div>`;
+  if(t==='note')return`<div class="form-gr"><label class="form-lb">Note</label><textarea class="form-in" rows="4" placeholder="Write a note…"></textarea></div>${b}<button class="btn-p" onclick="toast('Note saved!');closeModal()">Save note</button><button class="btn-s" onclick="closeModal()">Cancel</button></div>`;
+  if(t==='booking')return`<div class="form-gr"><label class="form-lb">Contact</label><select class="form-in">${contacts.map(c=>`<option>${c.first} ${c.last}</option>`).join('')}</select></div><div class="form-gr"><label class="form-lb">Date</label><input class="form-in" type="date" value="2026-04-14"></div><div class="form-gr"><label class="form-lb">Time</label><input class="form-in" type="time" value="10:00"></div><div class="form-gr"><label class="form-lb">Type</label><select class="form-in"><option>Discovery call</option><option>Product demo</option><option>Strategy session</option></select></div>${b}<button class="btn-p" onclick="toast('Appointment booked!');closeModal();renderCalendar()">Book appointment</button><button class="btn-s" onclick="closeModal()">Cancel</button></div>`;
+  if(t==='invoice')return`<div class="form-gr"><label class="form-lb">Client</label><select class="form-in">${contacts.map(c=>`<option>${c.first} ${c.last}</option>`).join('')}</select></div><div class="form-gr"><label class="form-lb">Description</label><input class="form-in" placeholder="Website Package — April 2026"></div><div class="form-gr"><label class="form-lb">Amount (₱)</label><input class="form-in" type="number" placeholder="35000"></div><div class="form-gr"><label class="form-lb">Due date</label><input class="form-in" type="date"></div>${b}<button class="btn-p" onclick="toast('Invoice created!');closeModal()">Create invoice</button><button class="btn-s" onclick="closeModal()">Cancel</button></div>`;
+  if(t==='team')return`<div class="form-gr"><label class="form-lb">Email address</label><input class="form-in" type="email" placeholder="teammate@email.com"></div><div class="form-gr"><label class="form-lb">Role</label><select class="form-in"><option>Admin</option><option>User</option><option>View only</option></select></div>${b}<button class="btn-p" onclick="toast('Invitation sent!');closeModal()">Send invite</button><button class="btn-s" onclick="closeModal()">Cancel</button></div>`;
+  return`<p style="font-size:12px;color:var(--text2)">Configure "${t}" here.</p>`;
+}
+function saveContact(){var fn=document.getElementById('fn').value.trim();var ln=document.getElementById('ln').value.trim();if(!fn||!ln){toast('Name required!',true);return;}var cols=['#0ea5e9','#7c3aed','#f59e0b','#16a34a','#ef4444','#f97316'];contacts.push({id:contacts.length+1,first:fn,last:ln,email:document.getElementById('em').value||'—',phone:document.getElementById('ph').value||'—',tag:document.getElementById('tg').value,source:document.getElementById('src').value,stage:'New lead',active:'Just now',color:cols[Math.floor(Math.random()*cols.length)]});document.getElementById('bd-c').textContent=contacts.length;closeModal();toast(fn+' '+ln+' added!');if(curPage==='contacts')renderContacts();}
+function saveDeal(){var dn=document.getElementById('dn').value.trim();if(!dn){toast('Deal name required!',true);return;}deals.push({id:deals.length+1,name:dn,value:parseInt(document.getElementById('dv').value)||0,stage:document.getElementById('ds').value,date:'Apr 12',contact:document.getElementById('dc').value});closeModal();toast('Deal added!');if(curPage==='pipeline')renderPipeline();}
+function closeModal(){document.getElementById('modal-bg').classList.remove('show');}
+
+// ===== FUNNEL BUILDER =====
+function loadFTpl(t){
+  var tpls={leadmagnet:['optin','thankyou'],tripwire:['optin','sales','order','upsell','thankyou'],webinar:['optin','webinar','thankyou'],highticket:['sales','survey','appointment']};
+  var names={leadmagnet:['Free Guide Opt-in','Download Thank You'],tripwire:['Lead Capture','Sales Page','Order Form','One-Time Offer','Thank You'],webinar:['Webinar Registration','Webinar Room','Replay Page'],highticket:['VSL Sales Page','Application Survey','Book a Call']};
+  fSteps=[];(tpls[t]||[]).forEach((type,i)=>{fSteps.push({id:Date.now()+i,type,name:(names[t]||[])[i]||sDefs[type].label,url:'/'+type+'-'+(i+1)});});
+  selStep=null;renderFunnelCanvas();toast('Template loaded!');
+}
+function addFStep(type){fSteps.push({id:Date.now(),type,name:sDefs[type].label,url:'/'+type+'-'+(fSteps.length+1)});renderFunnelCanvas();toast('Step added!');}
+function renderFunnelCanvas(){
+  var c=document.getElementById('funnel-canvas');if(!c)return;
+  document.getElementById('f-step-cnt').textContent=fSteps.length+' step'+(fSteps.length!==1?'s':'');
+  if(!fSteps.length){c.innerHTML=`<div style="text-align:center;padding:60px;color:var(--text2)"><div style="font-size:32px;margin-bottom:10px">⟁</div><div style="font-size:13px;font-weight:600;margin-bottom:6px">Funnel is empty</div><div style="font-size:12px">Click a page type on the left or load a template</div></div><div class="drop-zone">+ Drop a step here to start</div>`;return;}
+  var html='';
+  fSteps.forEach((step,i)=>{
+    var def=sDefs[step.type]||sDefs.optin;
+    if(i>0)html+=`<div class="step-arrow"></div>`;
+    html+=`<div class="funnel-step${selStep&&selStep.id===step.id?' sel':''}" id="fs-${step.id}" onclick="selFStep(${step.id})" draggable="true" ondragstart="fsDragIdx=${i};event.dataTransfer.setData('t','s')" ondragover="event.preventDefault();this.classList.add('drag-ov')" ondragleave="this.classList.remove('drag-ov')" ondrop="dropOnFStep(event,${i})">
+      <div class="step-del" onclick="event.stopPropagation();delFStepById(${step.id})">×</div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:34px;border-radius:8px;background:${def.bg};display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">${def.icon}</div><div><div style="font-size:13px;font-weight:600">${step.name}</div><div style="font-size:11px;color:var(--text2)">${def.label} · ${step.url}</div></div></div>
+      <div style="display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)"><div style="text-align:center"><div style="font-size:14px;font-weight:600">${def.visitors.toLocaleString()}</div><div style="font-size:10px;color:var(--text2)">Visitors</div></div><div style="text-align:center"><div style="font-size:14px;font-weight:600;color:var(--accent3)">${def.conv}</div><div style="font-size:10px;color:var(--text2)">Conv. rate</div></div><div style="text-align:center"><div style="font-size:14px;font-weight:600">${Math.round(def.visitors*parseInt(def.conv)/100)}</div><div style="font-size:10px;color:var(--text2)">Conversions</div></div></div>
+    </div>`;
+  });
+  html+=`<div class="drop-zone" style="margin-top:12px">+ Add another step</div>`;
+  c.innerHTML=html;
+}
+var fsDragIdx=null;
+function dropOnFStep(e,to){e.preventDefault();e.currentTarget.classList.remove('drag-ov');if(fsDragIdx===null||fsDragIdx===to)return;var m=fSteps.splice(fsDragIdx,1)[0];fSteps.splice(to,0,m);fsDragIdx=null;renderFunnelCanvas();}
+function selFStep(id){selStep=fSteps.find(s=>s.id===id);renderFunnelCanvas();if(!selStep)return;document.getElementById('f-props-ph').style.display='none';document.getElementById('f-props').style.display='';var def=sDefs[selStep.type]||sDefs.optin;document.getElementById('f-props-title').textContent=def.label+' settings';document.getElementById('prop-name').value=selStep.name;document.getElementById('prop-url').value=selStep.url||'';document.getElementById('prop-vis').textContent=def.visitors.toLocaleString();document.getElementById('prop-cv').textContent=def.conv;}
+function updProp(k,v){if(!selStep)return;selStep[k]=v;if(k==='name'||k==='url')renderFunnelCanvas();}
+function delFStep(){if(selStep)delFStepById(selStep.id);}
+function delFStepById(id){fSteps=fSteps.filter(s=>s.id!==id);if(selStep&&selStep.id===id){selStep=null;document.getElementById('f-props').style.display='none';document.getElementById('f-props-ph').style.display='';}renderFunnelCanvas();}
+function dupFStep(){if(!selStep)return;var cp=Object.assign({},selStep,{id:Date.now(),name:selStep.name+' (copy)'});var idx=fSteps.findIndex(s=>s.id===selStep.id);fSteps.splice(idx+1,0,cp);renderFunnelCanvas();toast('Step duplicated!');}
+
+// ===== EMAIL DESIGNER =====
+var eBDefs={
+  header:{lbl:'Header',r:b=>`<div style="background:${b.bg||'#0ea5e9'};padding:16px 20px;text-align:center"><div contenteditable="true" style="font-size:18px;font-weight:700;color:#fff;cursor:text">${b.content||'Your Brand Name'}</div></div>`},
+  headline:{lbl:'Headline',r:b=>`<div style="background:${b.bg||'#ffffff'};padding:24px 20px;text-align:center"><div contenteditable="true" style="font-size:26px;font-weight:700;color:${b.tc||'#0f172a'};line-height:1.3;cursor:text">${b.content||'Your headline goes here'}</div></div>`},
+  text:{lbl:'Text',r:b=>`<div style="background:${b.bg||'#ffffff'};padding:16px 20px"><div contenteditable="true" style="font-size:14px;color:${b.tc||'#374151'};line-height:1.7;cursor:text">${b.content||"Hi {first_name}, thanks for joining us! We're excited to have you on board..."}</div></div>`},
+  button:{lbl:'Button',r:b=>`<div style="background:${b.bg||'#ffffff'};padding:16px 20px;text-align:center"><div contenteditable="true" style="display:inline-block;background:${b.bc||'#0ea5e9'};color:#fff;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;cursor:text">${b.content||'Click here to get started →'}</div></div>`},
+  image:{lbl:'Image',r:b=>`<div style="background:${b.bg||'#ffffff'};padding:16px 20px"><div style="background:#e2e8f0;border-radius:6px;height:160px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748b">[ Image placeholder — upload in real GHL ]</div></div>`},
+  divider:{lbl:'Divider',r:b=>`<div style="background:${b.bg||'#ffffff'};padding:8px 20px"><hr style="border:none;border-top:1px solid #e5e7eb;margin:0"></div>`},
+  twoCol:{lbl:'2-column',r:b=>`<div style="background:${b.bg||'#ffffff'};padding:16px 20px;display:flex;gap:14px"><div style="flex:1;background:#f8fafc;border-radius:6px;padding:12px"><div contenteditable="true" style="font-size:13px;color:#374151;cursor:text">${b.c1||'<strong>Feature one</strong><br>Description here.'}</div></div><div style="flex:1;background:#f8fafc;border-radius:6px;padding:12px"><div contenteditable="true" style="font-size:13px;color:#374151;cursor:text">${b.c2||'<strong>Feature two</strong><br>Description here.'}</div></div></div>`},
+  bullets:{lbl:'Bullets',r:b=>`<div style="background:${b.bg||'#ffffff'};padding:16px 20px"><div contenteditable="true" style="font-size:14px;color:${b.tc||'#374151'};line-height:2;cursor:text">${b.content||'<div>✓ &nbsp;Benefit one</div><div>✓ &nbsp;Benefit two</div><div>✓ &nbsp;Benefit three</div>'}</div></div>`},
+  footer:{lbl:'Footer',r:b=>`<div style="background:${b.bg||'#f8fafc'};padding:16px 20px;text-align:center"><div contenteditable="true" style="font-size:11px;color:#9ca3af;line-height:1.8;cursor:text">${b.content||'You received this because you subscribed at our website.<br><u>Unsubscribe</u> · <u>Update preferences</u><br>Bhel GHL Agency · Cebu City, Philippines'}</div></div>`}
+};
+function addEBlk(type){var id=Date.now();emailBlocks.push({id,type,bg:'#ffffff',content:'',c1:'',c2:''});renderEmail();updBlkCnt();}
+function renderEmail(){
+  var fr=document.getElementById('email-frame');if(!fr)return;
+  if(!emailBlocks.length){fr.innerHTML='<div style="padding:40px;text-align:center;color:#94a3b8;font-size:13px">Add blocks from the left panel</div>';return;}
+  fr.innerHTML=emailBlocks.map(b=>{var def=eBDefs[b.type];return`<div class="email-block${selBlkId===b.id?' sel':''}" id="eb-${b.id}" onclick="selBlk(${b.id})"><div class="blk-del" onclick="event.stopPropagation();delBlkById(${b.id})">×</div>${def?def.r(b):'<div style="padding:16px">Unknown block</div>'}</div>`;}).join('');
+}
+function selBlk(id){selBlkId=id;renderEmail();var b=emailBlocks.find(x=>x.id===id);if(!b)return;document.getElementById('blk-ph').style.display='none';document.getElementById('blk-props').style.display='';document.getElementById('blk-props-title').textContent=(eBDefs[b.type]||{lbl:'Block'}).lbl+' settings';var ex='';if(b.type==='button')ex=`<div class="form-gr"><label class="form-lb">Button color</label><div style="display:flex;gap:6px;flex-wrap:wrap">${['#0ea5e9','#7c3aed','#16a34a','#ef4444','#f59e0b','#0f172a'].map(c=>`<div class="cdot" style="background:${c}" onclick="setBlkProp('bc','${c}')"></div>`).join('')}</div></div>`;if(b.type==='headline'||b.type==='text'||b.type==='bullets')ex+=`<div class="form-gr"><label class="form-lb">Text color</label><div style="display:flex;gap:6px;flex-wrap:wrap">${['#0f172a','#374151','#ffffff','#0ea5e9','#7c3aed','#16a34a'].map(c=>`<div class="cdot" style="background:${c}" onclick="setBlkProp('tc','${c}')"></div>`).join('')}</div></div>`;document.getElementById('blk-props-content').innerHTML=ex;}
+function setBlkProp(k,v){var b=emailBlocks.find(x=>x.id===selBlkId);if(b){b[k]=v;renderEmail();}}
+function setBg(col,el){document.querySelectorAll('#blk-bg-dots .cdot').forEach(d=>d.classList.remove('sel'));el.classList.add('sel');setBlkProp('bg',col);}
+function delBlkById(id){emailBlocks=emailBlocks.filter(b=>b.id!==id);if(selBlkId===id){selBlkId=null;document.getElementById('blk-props').style.display='none';document.getElementById('blk-ph').style.display='';}renderEmail();updBlkCnt();}
+function delBlk(){if(selBlkId)delBlkById(selBlkId);}
+function moveBlk(dir){var idx=emailBlocks.findIndex(b=>b.id===selBlkId);if(idx<0)return;var to=idx+dir;if(to<0||to>=emailBlocks.length)return;var tmp=emailBlocks[idx];emailBlocks[idx]=emailBlocks[to];emailBlocks[to]=tmp;renderEmail();}
+function dupeBlk(){var b=emailBlocks.find(x=>x.id===selBlkId);if(!b)return;var cp=Object.assign({},b,{id:Date.now()});var idx=emailBlocks.findIndex(x=>x.id===selBlkId);emailBlocks.splice(idx+1,0,cp);renderEmail();updBlkCnt();toast('Block duplicated!');}
+function updBlkCnt(){document.getElementById('blk-cnt').textContent=emailBlocks.length+' block'+(emailBlocks.length!==1?'s':'');}
+function loadETpl(t){
+  emailBlocks=[];
+  var tpls={
+    welcome:[{type:'header',bg:'#0ea5e9',content:'Bhel GHL Agency'},{type:'headline',content:'Welcome, {first_name}! 🎉'},{type:'text',content:"Hi {first_name},<br><br>Thank you for joining us! We're thrilled to have you here. Over the next few days, we'll be sending you some valuable resources."},{type:'bullets',content:'<div>✓ &nbsp;Access your free resource immediately</div><div>✓ &nbsp;Expect a follow-up email in 24 hours</div><div>✓ &nbsp;Our team is here to help — reply anytime</div>'},{type:'button',content:'Get started now →',bc:'#0ea5e9'},{type:'footer'}],
+    promo:[{type:'header',bg:'#7c3aed',content:'Limited Time Offer'},{type:'headline',content:'🔥 Special offer ends in 24 hours!'},{type:'text',content:'Hi {first_name},<br><br>We have an exclusive offer just for you!'},{type:'button',content:'Claim your discount →',bc:'#ef4444'},{type:'footer'}],
+    followup:[{type:'header',content:'Quick check-in'},{type:'headline',content:'Did you get a chance to check this out?'},{type:'text',content:"Hi {first_name},<br><br>Just following up from my last email..."},{type:'button',content:'See what you missed →',bc:'#0ea5e9'},{type:'footer'}],
+    abandoned:[{type:'header',bg:'#f59e0b',content:"You left something behind!"},{type:'headline',content:'{first_name}, your cart is waiting!'},{type:'text',content:"Hi {first_name},<br><br>You started checking out but didn't complete your purchase."},{type:'button',content:'Complete your order →',bc:'#16a34a'},{type:'footer'}],
+    appointment:[{type:'header',bg:'#7c3aed',content:'Appointment Confirmed'},{type:'headline',content:"You're booked, {first_name}!"},{type:'twoCol',c1:'<strong>Date & Time</strong><br>April 14, 2026<br>10:00 AM PHT',c2:'<strong>Meeting type</strong><br>Discovery Call<br>30 minutes'},{type:'button',content:'Add to calendar →',bc:'#7c3aed'},{type:'footer'}],
+    newsletter:[{type:'header',content:'Monthly Newsletter'},{type:'headline',content:"What's new this April, {first_name}"},{type:'text',content:"Here's a roundup of everything happening this month..."},{type:'twoCol'},{type:'divider'},{type:'button',content:'Read the full update →',bc:'#0ea5e9'},{type:'footer'}]
+  };
+  (tpls[t]||tpls.welcome).forEach((b,i)=>{emailBlocks.push(Object.assign({id:Date.now()+i,bg:'#ffffff',content:'',c1:'<strong>Column 1</strong><br>Content here.',c2:'<strong>Column 2</strong><br>Content here.'},b));});
+  selBlkId=null;document.getElementById('blk-props').style.display='none';document.getElementById('blk-ph').style.display='';renderEmail();updBlkCnt();toast(t+' template loaded!');
+}
+function edSTab(el,tab){document.querySelectorAll('.ed-tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.getElementById('ed-blks-panel').style.display=tab==='blocks'?'':'none';document.getElementById('ed-tpls-panel').style.display=tab==='templates'?'':'none';}
+function setPvMode(m,el){document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.getElementById('email-frame').style.width=m==='mobile'?'340px':'520px';}
+
+// ===== A/B TEST =====
+function updSplit(v){splitA=parseInt(v);document.getElementById('sp-a').textContent=splitA+'%';document.getElementById('sp-b').textContent=(100-splitA)+'%';document.getElementById('sp-bar').style.width=splitA+'%';}
+function simAB(){
+  var tot=600;abData.a.sent=Math.round(tot*splitA/100);abData.b.sent=tot-abData.a.sent;
+  var rA=0.28+Math.random()*0.12;var rB=rA+(Math.random()>0.4?0.06:-0.02)+Math.random()*0.08;
+  abData.a.opens=Math.round(abData.a.sent*rA);abData.b.opens=Math.round(abData.b.sent*rB);
+  abData.a.clicks=Math.round(abData.a.opens*0.22);abData.b.clicks=Math.round(abData.b.opens*0.26);
+  abData.a.convs=Math.round(abData.a.clicks*0.18);abData.b.convs=Math.round(abData.b.clicks*0.21);
+  renderAbMetrics();
+}
+function renderAbMetrics(){
+  function pct(n,d){return d?((n/d)*100).toFixed(1)+'%':'0%';}
+  var aOR=pct(abData.a.opens,abData.a.sent);var bOR=pct(abData.b.opens,abData.b.sent);
+  var mx=Math.max(parseFloat(aOR),parseFloat(bOR))||1;
+  function mHtml(d,or,col){return`<div class="ab-metric"><div class="ab-mk">Sent</div><div class="ab-mv">${d.sent.toLocaleString()}</div></div><div class="ab-metric"><div class="ab-mk">Open rate</div><div><div class="ab-mv">${or}</div><div class="stat-bar" style="width:${Math.round(parseFloat(or)/mx*100)}%;background:${col}"></div></div></div><div class="ab-metric"><div class="ab-mk">Conversions</div><div class="ab-mv">${d.convs}</div></div>`;}
+  document.getElementById('va-metrics').innerHTML=mHtml(abData.a,aOR,'#0ea5e9');
+  document.getElementById('vb-metrics').innerHTML=mHtml(abData.b,bOR,'#7c3aed');
+  var lift=parseFloat(bOR)-parseFloat(aOR);var lp=parseFloat(aOR)>0?(lift/parseFloat(aOR)*100).toFixed(1):0;
+  var conf=Math.min(99,Math.round(55+Math.abs(lift)*60+Math.random()*15));
+  document.getElementById('conf-pct').textContent=conf+'%';document.getElementById('conf-fill').style.width=conf+'%';document.getElementById('conf-fill').style.background=conf>=95?'#16a34a':conf>=80?'#f59e0b':'#ef4444';
+  document.getElementById('conf-lbl').textContent=conf>=95?'Statistically significant — safe to declare a winner':conf>=80?'Good signal — run a bit longer':'Still collecting data — keep running';
+  document.getElementById('ab-sum').innerHTML=`<div style="background:#f8fafc;border-radius:7px;padding:8px;text-align:center"><div style="font-size:14px;font-weight:600">${(abData.a.sent+abData.b.sent).toLocaleString()}</div><div style="font-size:10px;color:var(--text2)">Total sent</div></div><div style="background:#f8fafc;border-radius:7px;padding:8px;text-align:center"><div style="font-size:14px;font-weight:600;color:${lift>=0?'#16a34a':'#dc2626'}">${lift>=0?'+':''}${lp}%</div><div style="font-size:10px;color:var(--text2)">B vs A lift</div></div><div style="background:#f8fafc;border-radius:7px;padding:8px;text-align:center"><div style="font-size:14px;font-weight:600">${conf}%</div><div style="font-size:10px;color:var(--text2)">Confidence</div></div><div style="background:#f8fafc;border-radius:7px;padding:8px;text-align:center"><div style="font-size:14px;font-weight:600;color:${lift>=0?'#7c3aed':'#0ea5e9'}">${lift>=0?'B':'A'}</div><div style="font-size:10px;color:var(--text2)">Leading</div></div>`;
+  if(lift>=0)document.getElementById('vb-badge').innerHTML='<span class="tag t-new" style="margin-top:8px;display:inline-block">Leading</span>';
+  else document.getElementById('va-badge').innerHTML='<span class="tag t-new" style="margin-top:8px;display:inline-block">Leading</span>';
+}
+function declareWin(){
+  if(!abData.a.sent){toast('Simulate traffic first!',true);return;}
+  var win=abData.b.opens/abData.b.sent>=abData.a.opens/abData.a.sent?'b':'a';
+  document.getElementById('var-'+win).classList.add('winner');
+  document.getElementById('v'+win+'-badge').innerHTML='<span class="tag t-cust" style="margin-top:8px;display:inline-block">Winner! 🏆</span>';
+  abHist.unshift({name:document.getElementById('ab-name').value,winner:win.toUpperCase(),lift:'+'+Math.round(Math.random()*20+5)+'%',conf:'95%+',date:'Today'});
+  renderAbHist();toast('Winner declared: Variant '+win.toUpperCase()+'!');
+}
+function resetAB(){abData={a:{sent:0,opens:0,clicks:0,convs:0},b:{sent:0,opens:0,clicks:0,convs:0}};['va-metrics','vb-metrics','va-badge','vb-badge','ab-sum'].forEach(id=>{var e=document.getElementById(id);if(e)e.innerHTML='';});document.getElementById('var-a').classList.remove('winner');document.getElementById('var-b').classList.remove('winner');document.getElementById('conf-pct').textContent='—';document.getElementById('conf-fill').style.width='0%';document.getElementById('conf-lbl').textContent='Run the test to see results';toast('Test reset!');}
+function renderAbHist(){var el=document.getElementById('ab-hist');if(el)el.innerHTML=abHist.slice(0,5).map(h=>`<div style="padding:7px 0;border-bottom:1px solid var(--border)"><div style="font-size:11px;font-weight:600;margin-bottom:2px">${h.name}</div><div style="display:flex;gap:6px;align-items:center"><span class="tag t-cust">Winner: ${h.winner}</span><span style="font-size:10px;color:var(--accent3)">${h.lift}</span><span style="font-size:10px;color:var(--text3);margin-left:auto">${h.date}</span></div></div>`).join('');}
+
+// ===== SMS SEQUENCE =====
+function addSms(type,data){
+  var defs={sms:{msg:'Hi {first_name}, thanks for reaching out! Reply YES to learn more.'},delay:{amount:1,unit:'day'},condition:{field:'Replied',op:'is',value:'YES'},tag:{action:'add',tag:'lead-engaged'},email:{subject:'Follow-up from us'},task:{text:'Follow up with {first_name}'}};
+  smsSteps.push(Object.assign({id:Date.now(),type},defs[type]||{},data||{}));renderSmsSeq();
+}
+function loadSmsTpl(t){
+  smsSteps=[];
+  if(t==='welcome'){addSms('sms',{msg:"Hi {first_name}! Welcome 🎉 Reply HELP for our free resource."});addSms('delay',{amount:1,unit:'day'});addSms('tag',{action:'add',tag:'welcome-sent'});addSms('sms',{msg:"Hey {first_name}, did you get a chance to check out that resource?"});addSms('delay',{amount:2,unit:'days'});addSms('condition',{field:'Replied',op:'is',value:'YES'});addSms('sms',{msg:"Amazing! Let's schedule a quick call: calendly.com/bhel-agency"});}
+  else if(t==='appointment'){addSms('sms',{msg:'Hi {first_name}! Your appointment is confirmed. Reply YES to confirm.'});addSms('delay',{amount:1,unit:'day'});addSms('sms',{msg:"Reminder: Your call is tomorrow! See you then 📅"});addSms('delay',{amount:23,unit:'hour'});addSms('sms',{msg:"{first_name}, your call starts in 1 hour! Here's the link..."});addSms('task',{text:'Follow up after call with {first_name}'});}
+  else if(t==='reengagement'){addSms('sms',{msg:"Hi {first_name}, we miss you! 👋 Reply INFO for something special."});addSms('delay',{amount:3,unit:'days'});addSms('condition',{field:'Replied',op:'is',value:'INFO'});addSms('sms',{msg:"Great! We have an exclusive offer just for you."});addSms('tag',{action:'add',tag:'re-engaged'});}
+  renderSmsSeq();toast('Template loaded!');
+}
+function renderSmsSeq(){
+  var c=document.getElementById('sms-canvas');if(!c)return;
+  if(!smsSteps.length){c.innerHTML='<div style="text-align:center;padding:60px;color:var(--text2)"><div style="font-size:32px;margin-bottom:10px">💬</div><div style="font-size:13px;font-weight:600;margin-bottom:6px">Sequence is empty</div><div style="font-size:12px">Click a step type or load a template</div></div>';return;}
+  var html='<div style="display:flex;flex-direction:column;align-items:center;padding-bottom:30px"><div style="margin-bottom:6px"><div style="background:var(--accent);color:#fff;font-size:11px;padding:5px 16px;border-radius:20px;font-weight:600">⚡ Trigger: Contact form submit</div></div>';
+  smsSteps.forEach((step,i)=>{
+    var def=smsDefs[step.type]||smsDefs.sms;
+    html+='<div class="sms-arrow"></div>';
+    if(step.type==='condition'){
+      html+=`<div style="text-align:center;margin-bottom:4px"><div style="display:inline-block;background:rgba(124,58,237,0.08);border:1px solid #7c3aed;border-radius:8px;padding:6px 16px;font-size:11px;font-weight:600;color:#5b21b6">◈ If: ${step.field||'Replied'} ${step.op||'is'} "${step.value||'YES'}"</div></div>`;
+      html+=`<div class="branch-wrap"><div class="branch-col"><div style="background:#dcfce7;color:#166534;font-size:10px;font-weight:600;padding:3px 10px;border-radius:10px;margin-bottom:6px">YES branch</div><div class="sms-step${selSmsId===step.id?' sel':''}" id="ss-${step.id}" onclick="selSmsStep(${step.id})"><div class="sms-del" onclick="event.stopPropagation();delSmsStep(${step.id})">×</div><div style="font-size:11px;font-weight:600">Continue next step</div></div></div><div class="branch-col"><div style="background:#fee2e2;color:#991b1b;font-size:10px;font-weight:600;padding:3px 10px;border-radius:10px;margin-bottom:6px">NO branch</div><div style="background:#f8fafc;border:1px dashed var(--border);border-radius:8px;padding:10px 14px;text-align:center;font-size:11px;color:var(--text2);min-width:140px">End / skip</div></div></div>`;
+    } else {
+      var prev=step.type==='sms'?`<div style="font-size:10px;color:var(--text2);margin-top:5px;line-height:1.4">"${(step.msg||'').substring(0,60)}${(step.msg||'').length>60?'...':''}"</div>`:step.type==='delay'?`<div style="margin-top:5px"><span class="delay-badge">Wait ${step.amount||1} ${step.unit||'day'}</span></div>`:step.type==='tag'?`<div style="font-size:10px;color:var(--accent3);margin-top:4px">${step.action==='remove'?'Remove':'Add'} tag: "${step.tag||''}"</div>`:step.type==='email'?`<div style="font-size:10px;color:#ef4444;margin-top:4px">Subject: "${(step.subject||'').substring(0,40)}"</div>`:step.type==='task'?`<div style="font-size:10px;color:var(--text2);margin-top:4px">"${(step.text||'').substring(0,40)}"</div>`:'';
+      html+=`<div class="sms-step${selSmsId===step.id?' sel':''}" id="ss-${step.id}" onclick="selSmsStep(${step.id})"><div class="sms-del" onclick="event.stopPropagation();delSmsStep(${step.id})">×</div><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:6px;background:${def.bg};display:flex;align-items:center;justify-content:center;font-size:13px">${def.icon}</div><div><div style="font-size:12px;font-weight:600">${def.label}</div><div style="font-size:10px;color:var(--text2)">Step ${i+1}</div></div></div>${prev}</div>`;
+    }
+  });
+  html+='<div class="sms-arrow"></div><div style="display:inline-block;background:#f8fafc;border:1px dashed var(--border);border-radius:20px;padding:5px 18px;font-size:11px;color:var(--text2)">End of sequence</div></div>';
+  c.innerHTML=html;
+}
+function selSmsStep(id){selSmsId=id;var step=smsSteps.find(s=>s.id===id);if(!step)return;renderSmsSeq();document.getElementById('sms-ph').style.display='none';document.getElementById('sms-props').style.display='';var def=smsDefs[step.type]||smsDefs.sms;document.getElementById('sms-prop-title').textContent=def.label+' settings';var body='';if(step.type==='sms'){body=`<div class="form-gr"><label class="form-lb">Message (160 chars)</label><textarea class="form-in" rows="4" maxlength="160" id="sms-msg-inp" oninput="updSmsStep('msg',this.value);updPhonePrev(this.value)">${step.msg||''}</textarea><div style="font-size:10px;color:var(--text3);text-align:right">${(step.msg||'').length}/160</div></div><div class="form-gr"><label class="form-lb">Send from</label><select class="form-in"><option>Business number</option><option>Assigned user</option></select></div>`;}else if(step.type==='delay'){body=`<div style="display:flex;gap:8px"><div class="form-gr" style="flex:1"><label class="form-lb">Amount</label><input class="form-in" type="number" min="1" value="${step.amount||1}" oninput="updSmsStep('amount',parseInt(this.value))"></div><div class="form-gr" style="flex:1"><label class="form-lb">Unit</label><select class="form-in" onchange="updSmsStep('unit',this.value)"><option>minute</option><option>hour</option><option ${!step.unit||step.unit==='day'?'selected':''}>day</option><option>week</option></select></div></div>`;}else if(step.type==='tag'){body=`<div class="form-gr"><label class="form-lb">Action</label><select class="form-in" onchange="updSmsStep('action',this.value)"><option value="add">Add tag</option><option value="remove">Remove tag</option></select></div><div class="form-gr"><label class="form-lb">Tag name</label><input class="form-in" value="${step.tag||''}" oninput="updSmsStep('tag',this.value)"></div>`;}else if(step.type==='task'){body=`<div class="form-gr"><label class="form-lb">Task description</label><input class="form-in" value="${step.text||''}" oninput="updSmsStep('text',this.value)"></div>`;}
+  document.getElementById('sms-prop-body').innerHTML=body;updPhonePrev(step.msg||'Message preview here');}
+function updSmsStep(k,v){var s=smsSteps.find(x=>x.id===selSmsId);if(s){s[k]=v;renderSmsSeq();}if(k==='msg')updPhonePrev(v);}
+function updPhonePrev(msg){var pp=document.getElementById('phone-prev');if(pp)pp.innerHTML=`<div class="phone-bubble">${(msg||'').replace(/\n/g,'<br>').substring(0,200)}</div><div class="phone-time">Delivered · ${new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>`;}
+function delSmsStep(id){smsSteps=smsSteps.filter(s=>s.id!==id);if(selSmsId===id){selSmsId=null;document.getElementById('sms-props').style.display='none';document.getElementById('sms-ph').style.display='';}renderSmsSeq();}
+function clrSms(){smsSteps=[];selSmsId=null;renderSmsSeq();toast('Sequence cleared');}
+
+// ===== AUTOMATION WORKFLOW =====
+function addNode(cat,sub,x,y){
+  var def=(nDefs[cat]||{})[sub]||{title:sub,sub:cat,icon:'●',col:'#888',bg:'rgba(107,114,128,0.1)'};
+  autoNodes.push({id:Date.now()+Math.random(),cat,sub,x:x||Math.round(100+Math.random()*300),y:y||Math.round(40+autoNodes.length*150),def,config:{},label:def.title,enrolled:Math.floor(Math.random()*200),completed:Math.floor(Math.random()*150)});
+  renderAutoCanvas();updNodeCnt();
+}
+function renderAutoCanvas(){
+  var c=document.getElementById('auto-nodes');var svg=document.getElementById('auto-svg');if(!c||!svg)return;
+  c.innerHTML='';var maxY=0;
+  autoNodes.forEach(n=>{
+    maxY=Math.max(maxY,n.y+160);
+    var div=document.createElement('div');div.className='node'+(selNodeId===n.id?' sel':'');div.id='an-'+n.id;div.style.cssText=`left:${n.x}px;top:${n.y}px;width:180px`;
+    div.innerHTML=`<div class="node-hd"><div class="node-ic" style="background:${n.def.bg}">${n.def.icon}</div><div><div class="node-title">${n.label}</div><div class="node-sub">${n.def.sub}</div></div></div><div class="node-body">${getNodeBody(n)}</div><div class="node-foot"><div class="node-port" title="Click to connect" onclick="startConnect(${n.id})" style="${connectFrom===n.id?'background:'+n.def.col+';border-color:'+n.def.col:''}"></div><div class="node-del" onclick="delNodeById(${n.id})">×</div></div>`;
+    div.addEventListener('mousedown',e=>{if(e.target.classList.contains('node-port')||e.target.classList.contains('node-del'))return;dragNode=n;var r=div.getBoundingClientRect();var cr=document.getElementById('auto-canvas').getBoundingClientRect();dragOX=e.clientX-r.left;dragOY=e.clientY-r.top;e.preventDefault();});
+    div.addEventListener('click',e=>{if(e.target.classList.contains('node-del'))return;selNode(n.id);});
+    c.appendChild(div);
+  });
+  var svgH=Math.max(maxY+100,400);c.style.height=svgH+'px';svg.setAttribute('height',svgH);svg.setAttribute('width','2000');
+  var paths='';
+  autoEdges.forEach(e=>{var fr=autoNodes.find(n=>n.id===e.from);var to=autoNodes.find(n=>n.id===e.to);if(!fr||!to)return;var x1=fr.x+90;var y1=fr.y+90;var x2=to.x+90;var y2=to.y;var cy=(y1+y2)/2;paths+=`<path d="M${x1},${y1} C${x1},${cy} ${x2},${cy} ${x2},${y2}" fill="none" stroke="${fr.def.col||'#0ea5e9'}" stroke-width="2" marker-end="url(#arr-${fr.def.col==='#16a34a'?'g':fr.def.col==='#f59e0b'?'a':'b'})"/>`;});
+  svg.innerHTML=`<defs><marker id="arr-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#0ea5e9"/></marker><marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#16a34a"/></marker><marker id="arr-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#f59e0b"/></marker></defs>${paths}`;
+}
+function getNodeBody(n){var c=n.config||{};if(n.sub==='send_sms')return`<span style="font-size:10px">${c.msg||'Configure message…'}</span>`;if(n.sub==='send_email')return`<span style="font-size:10px">${c.subj||'Configure email…'}</span>`;if(n.sub==='wait')return`<span style="font-size:10px">Wait ${c.amount||1} ${c.unit||'day'}</span>`;if(n.sub==='condition')return`<span style="font-size:10px">If ${c.field||'tag'} = "${c.val||'?'}"</span>`;if(n.sub==='add_tag')return`<span style="font-size:10px">Tag: "${c.tag||'configure…'}"</span>`;if(n.sub==='move_pipeline')return`<span style="font-size:10px">→ ${c.stage||'Select stage'}</span>`;if(n.sub==='goal')return`<span style="font-size:10px">${c.goal||'Configure goal…'}</span>`;return`<span style="font-size:10px;color:var(--text3)">Click to configure</span>`;}
+function startConnect(id){if(connectFrom===null){connectFrom=id;toast('Click another node to connect');}else if(connectFrom!==id){if(!autoEdges.find(e=>e.from===connectFrom&&e.to===id))autoEdges.push({from:connectFrom,to:id});connectFrom=null;renderAutoCanvas();toast('Nodes connected!');}else{connectFrom=null;renderAutoCanvas();}}
+function selNode(id){selNodeId=id;var n=autoNodes.find(x=>x.id===id);if(!n)return;renderAutoCanvas();document.getElementById('auto-ph').style.display='none';document.getElementById('auto-props').style.display='';document.getElementById('auto-prop-title').textContent=n.def.title+' settings';document.getElementById('auto-enr').textContent=n.enrolled||'—';document.getElementById('auto-com').textContent=n.completed||'—';var c=n.config||{};var h=`<div class="form-gr"><label class="form-lb">Node label</label><input class="form-in" value="${n.label}" oninput="updNode('label',this.value)"></div>`;if(n.sub==='send_sms')h+=`<div class="form-gr"><label class="form-lb">Message</label><textarea class="form-in" rows="3" oninput="updNodeCfg('msg',this.value)">${c.msg||''}</textarea></div>`;else if(n.sub==='send_email')h+=`<div class="form-gr"><label class="form-lb">Template</label><select class="form-in"><option>Welcome email</option><option>Follow-up</option><option>Promo blast</option></select></div>`;else if(n.sub==='wait')h+=`<div style="display:flex;gap:6px"><div class="form-gr" style="flex:1"><label class="form-lb">Amount</label><input class="form-in" type="number" value="${c.amount||1}" oninput="updNodeCfg('amount',parseInt(this.value))"></div><div class="form-gr" style="flex:1"><label class="form-lb">Unit</label><select class="form-in" onchange="updNodeCfg('unit',this.value)"><option>minute</option><option>hour</option><option>day</option><option>week</option></select></div></div>`;else if(n.sub==='condition')h+=`<div class="form-gr"><label class="form-lb">If field</label><select class="form-in"><option>Tag applied</option><option>Replied to SMS</option><option>Email opened</option></select></div><div class="form-gr"><label class="form-lb">Value</label><input class="form-in" value="${c.val||''}" oninput="updNodeCfg('val',this.value)"></div>`;else if(n.sub==='add_tag')h+=`<div class="form-gr"><label class="form-lb">Tag name</label><input class="form-in" value="${c.tag||''}" oninput="updNodeCfg('tag',this.value)" placeholder="e.g. hot-lead"></div>`;else if(n.sub==='move_pipeline')h+=`<div class="form-gr"><label class="form-lb">Move to stage</label><select class="form-in" onchange="updNodeCfg('stage',this.value)">${stages.map(s=>`<option>${s}</option>`).join('')}</select></div>`;else if(n.sub==='goal')h+=`<div class="form-gr"><label class="form-lb">Goal</label><input class="form-in" value="${c.goal||''}" oninput="updNodeCfg('goal',this.value)" placeholder="e.g. Booked a call"></div>`;document.getElementById('auto-prop-body').innerHTML=h;}
+function updNode(k,v){var n=autoNodes.find(x=>x.id===selNodeId);if(n){n[k]=v;renderAutoCanvas();}}
+function updNodeCfg(k,v){var n=autoNodes.find(x=>x.id===selNodeId);if(n){n.config=n.config||{};n.config[k]=v;renderAutoCanvas();}}
+function delNodeById(id){autoNodes=autoNodes.filter(n=>n.id!==id);autoEdges=autoEdges.filter(e=>e.from!==id&&e.to!==id);if(selNodeId===id){selNodeId=null;document.getElementById('auto-props').style.display='none';document.getElementById('auto-ph').style.display='';}renderAutoCanvas();updNodeCnt();}
+function delNode(){if(selNodeId)delNodeById(selNodeId);}
+function dupeNode(){var n=autoNodes.find(x=>x.id===selNodeId);if(!n)return;var cp=JSON.parse(JSON.stringify(n));cp.id=Date.now()+Math.random();cp.x+=30;cp.y+=30;autoNodes.push(cp);renderAutoCanvas();updNodeCnt();toast('Node duplicated!');}
+function updNodeCnt(){var e=document.getElementById('node-cnt');if(e)e.textContent=autoNodes.length+' node'+(autoNodes.length!==1?'s':'');}
+function clrAuto(){autoNodes=[];autoEdges=[];selNodeId=null;document.getElementById('auto-props').style.display='none';document.getElementById('auto-ph').style.display='';renderAutoCanvas();updNodeCnt();toast('Canvas cleared');}
+function togglePub(){var t=document.getElementById('pub-tog');t.classList.toggle('on');t.classList.toggle('off');toast(t.classList.contains('on')?'Workflow published!':'Workflow paused');}
+function loadAutoTpl(t){
+  autoNodes=[];autoEdges=[];selNodeId=null;
+  document.getElementById('auto-props').style.display='none';document.getElementById('auto-ph').style.display='';
+  var tpls={
+    welcome:[{cat:'trigger',sub:'contact_form',x:200,y:20,cfg:{}},{cat:'action',sub:'send_sms',x:200,y:170,cfg:{msg:"Hi {first_name}! Thanks for reaching out. We'll be in touch shortly!"}},{cat:'action',sub:'add_tag',x:200,y:320,cfg:{tag:'new-lead'}},{cat:'logic',sub:'wait',x:200,y:470,cfg:{amount:1,unit:'day'}},{cat:'action',sub:'send_email',x:200,y:620,cfg:{subj:'Welcome email'}},{cat:'logic',sub:'goal',x:200,y:770,cfg:{goal:'Engaged with email'}}],
+    nurture:[{cat:'trigger',sub:'tag_added',x:200,y:20,cfg:{}},{cat:'action',sub:'send_email',x:200,y:170,cfg:{subj:'Day 1 — Welcome'}},{cat:'logic',sub:'wait',x:200,y:320,cfg:{amount:3,unit:'day'}},{cat:'action',sub:'send_sms',x:200,y:470,cfg:{msg:"Hey {first_name}, did you get our email?"}},{cat:'logic',sub:'wait',x:200,y:620,cfg:{amount:4,unit:'day'}},{cat:'action',sub:'move_pipeline',x:200,y:770,cfg:{stage:'Contacted'}}],
+    booking:[{cat:'trigger',sub:'appt',x:200,y:20,cfg:{}},{cat:'action',sub:'send_email',x:200,y:170,cfg:{subj:'Appointment confirmed!'}},{cat:'action',sub:'send_sms',x:200,y:320,cfg:{msg:'Your call is confirmed! See you soon.'}},{cat:'logic',sub:'wait',x:200,y:470,cfg:{amount:23,unit:'hour'}},{cat:'action',sub:'send_sms',x:200,y:620,cfg:{msg:"Reminder: Your call is tomorrow!"}},{cat:'action',sub:'notify_team',x:200,y:770,cfg:{}}],
+    postpurchase:[{cat:'trigger',sub:'payment',x:200,y:20,cfg:{}},{cat:'action',sub:'send_email',x:200,y:170,cfg:{subj:'Thank you for your purchase!'}},{cat:'action',sub:'add_tag',x:200,y:320,cfg:{tag:'customer'}},{cat:'action',sub:'move_pipeline',x:200,y:470,cfg:{stage:'Closed won'}},{cat:'logic',sub:'wait',x:200,y:620,cfg:{amount:3,unit:'day'}},{cat:'logic',sub:'goal',x:200,y:770,cfg:{goal:'Customer onboarded'}}]
+  };
+  (tpls[t]||tpls.welcome).forEach((nd,i)=>{var def=(nDefs[nd.cat]||{})[nd.sub]||{title:nd.sub,sub:nd.cat,icon:'●',col:'#888',bg:'rgba(107,114,128,0.1)'};autoNodes.push({id:Date.now()+i+Math.random(),cat:nd.cat,sub:nd.sub,x:nd.x,y:nd.y,def,config:nd.cfg||{},label:def.title,enrolled:Math.floor(Math.random()*200),completed:Math.floor(Math.random()*150)});});
+  for(var i=0;i<autoNodes.length-1;i++)autoEdges.push({from:autoNodes[i].id,to:autoNodes[i+1].id});
+  renderAutoCanvas();updNodeCnt();toast('Template loaded — drag nodes to rearrange!');
+}
+document.addEventListener('mousemove',e=>{if(!dragNode)return;var c=document.getElementById('auto-canvas');if(!c)return;var r=c.getBoundingClientRect();dragNode.x=Math.max(0,Math.round(e.clientX-r.left-dragOX));dragNode.y=Math.max(0,Math.round(e.clientY-r.top-dragOY));renderAutoCanvas();});
+document.addEventListener('mouseup',()=>{dragNode=null;});
+
+// ===== INIT =====
+renderDash();
+loadFTpl('tripwire');
+loadETpl('welcome');
+loadSmsTpl('welcome');
+loadAutoTpl('welcome');
+renderAbHist();
+</script>
+
+<div style="position:fixed;bottom:0;left:212px;right:0;height:32px;background:#fff;border-top:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:50;flex-shrink:0">
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="width:18px;height:18px;border-radius:4px;background:linear-gradient(135deg,#0ea5e9,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#fff">ZDS</div>
+    <span style="font-size:11px;color:#64748b;font-weight:500">GHL Playground</span>
+    <span style="font-size:11px;color:#94a3b8">—</span>
+    <span style="font-size:11px;color:#94a3b8">Practice environment by</span>
+    <a href="https://zatadigitalsolutions.com" target="_blank" style="font-size:11px;color:#0ea5e9;font-weight:600;text-decoration:none">Zata Digital Solutions</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:10px;color:#94a3b8">Not affiliated with GoHighLevel</span>
+    <span style="font-size:10px;color:#cbd5e1">|</span>
+    <a href="https://zatadigitalsolutions.com" target="_blank" style="font-size:10px;color:#0ea5e9;text-decoration:none;font-weight:500">zatadigitalsolutions.com ↗</a>
+  </div>
+</div>
+</body>
+</html>
